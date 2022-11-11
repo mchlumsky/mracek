@@ -1,0 +1,40 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task --list-all
+
+  lint:
+    cmds:
+      - golangci-lint run
+
+  all-tests:
+    deps:
+      - lint
+      - test
+      - test-release
+
+  test:
+    cmds:
+      - go test -cover -v -race $(go list ./...)
+
+  test-release:
+    cmds:
+      - goreleaser release --skip-validate --skip-publish --rm-dist --snapshot
+
+  release:
+    vars:
+      # Disable shallow cloning so that goreleaser can diff between tags to
+      # generate a changelog.
+      GIT_DEPTH: 0
+    cmds:
+      - goreleaser release --rm-dist
+
+  coverage:
+    cmds:
+      - go test -v -cover -coverprofile=c.out ./...
+      - go tool cover -func=c.out
+      - rm c.out

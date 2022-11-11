@@ -1,0 +1,39 @@
+public-clouds:
+  rackspace:
+    auth:
+      auth_url: "https://identity.api.rackspacecloud.com/v2.0/"
+  some_profile:
+    auth:
+      auth_url: "https://all.example.com:5000/v3"
+  all_fields:
+    profile: "some_profile"
+    endpoint_type: "public"
+    interface: "public"
+    identity_api_version: "3"
+    volume_api_version: "3"
+    verify: true
+    cacert: foo.crt
+    cert: bar.crt
+    key: bar.key
+    auth_type: "token"
+    auth:
+      auth_url: "https://all.example.com:5000/v3"
+      token: "bizbaz"
+      username: "jdoe"
+      user_id: "12345"
+      password: "password"
+      application_credential_id: "app-cred-id"
+      application_credential_name: "app-cred-name"
+      application_credential_secret: "secret"
+      project_name: "Some Project"
+      project_id: "Some Project ID"
+      tenant_name: "Some Project"
+      tenant_id: "Some Project ID"
+      user_domain_name: "default"
+      user_domain_id: "abcde"
+      project_domain_name: "default"
+      project_domain_id: "fedcba"
+      domain_name: "default"
+      domain_id: "Default"
+      allow_reauth: false
+    region_name: "ALL"
