@@ -1,6 +1,6 @@
 # mracek 
 
-[![codecov](https://codecov.io/gh/mchlumsky/mracek/branch/master/graph/badge.svg?token=YHCWIP3V43)](https://codecov.io/gh/mchlumsky/mracek)
+[![codecov](https://codecov.io/gh/mchlumsky/mracek/branch/main/graph/badge.svg?token=YHCWIP3V43)](https://codecov.io/gh/mchlumsky/mracek)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE.md)
 [![Build status](https://img.shields.io/github/workflow/status/mchlumsky/mracek/build)](https://github.com/mchlumsky/mracek/actions?workflow=build)
 [![Powered By: GoReleaser](https://img.shields.io/badge/powered%20by-goreleaser-green.svg)](https://github.com/goreleaser)
