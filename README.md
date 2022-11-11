@@ -11,7 +11,11 @@ mracek is inspired by the awesome [kubectx/kubens](https://github.com/ahmetb/kub
 
 <img src="demo.gif" width="1300"  alt=""/>
 
-mracek supports auto-completion
+## Features
+
+* mracek supports auto-completion under bash, fish and zsh shells.
+* mracek is opinionated about where it puts secrets (passwords, application credential secrets) and always puts them in secrets.yaml
+* the directory where the openstack config files are stored is configurable (defaults to `$HOME/.config/openstack/`). See configuration section below.
 
 ## Examples
 ```shell
@@ -80,3 +84,7 @@ verify: true
 ```shell
 go install github.com/mchlumsky/mracek@latest
 ```
+
+## Configuration
+
+TODO
