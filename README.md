@@ -87,4 +87,14 @@ go install github.com/mchlumsky/mracek@latest
 
 ## Configuration
 
-TODO
+mracek supports configuration through the configuration file `$HOME/.mracek.yaml` by default and can be changed with the `--config` command line flag.
+
+Example:
+```yaml
+---
+# Can be overridden by environment variable MRACEK_OS_CONFIG_DIR
+os-config-dir: /path/to/openstack/config
+
+# Can be overridden by environment variable MRACEK_SHELL
+shell: /usr/bin/zsh
+```
