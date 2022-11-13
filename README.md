@@ -1,5 +1,6 @@
 # mracek 
 
+[![Release](https://img.shields.io/github/release/mchlumsky/mracek.svg)](https://github.com/mchlumsky/mracek/releases/latest)
 [![codecov](https://codecov.io/gh/mchlumsky/mracek/branch/main/graph/badge.svg?token=YHCWIP3V43)](https://codecov.io/gh/mchlumsky/mracek)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE.md)
 [![Build status](https://img.shields.io/github/workflow/status/mchlumsky/mracek/build)](https://github.com/mchlumsky/mracek/actions?workflow=build)
