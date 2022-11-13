@@ -43,8 +43,9 @@ nfpms:
   - file_name_template: '{{ .ConventionalFileName }}'
     id: packages
     homepage:  https://github.com/mchlumsky/mracek
-    description: Do things with your OpenStack client configuration
+    description: Small command line tool to manage your OpenStack configuration files
     maintainer: Martin Chlumsky <martin.chlumsky@gmail.com>
+    license: MIT
     contents:
       - src: ./completions/mracek.bash
         dst: /etc/bash_completion.d/mracek
