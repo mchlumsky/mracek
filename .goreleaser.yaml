@@ -26,6 +26,7 @@ changelog:
       - '^chore'
       - '^style'
       - '^ci'
+      - '^Merge pull request'
   groups:
     - title: 'New Features'
       regexp: "^.*feat[(\\w)]*:+.*$"
