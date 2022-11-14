@@ -6,7 +6,7 @@ require (
 	github.com/google/go-cmp v0.5.9
 	github.com/gophercloud/utils v0.0.0-20220704184730-55bdbbaec4ba
 	github.com/imdario/mergo v0.3.13
-	github.com/spf13/cobra v1.5.0
+	github.com/spf13/cobra v1.6.1
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.13.0
 	gopkg.in/yaml.v3 v3.0.1
@@ -16,7 +16,7 @@ require (
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/gophercloud/gophercloud v0.25.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
-	github.com/inconshreveable/mousetrap v1.0.0 // indirect
+	github.com/inconshreveable/mousetrap v1.0.1 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
