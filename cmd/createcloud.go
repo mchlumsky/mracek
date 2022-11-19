@@ -1,10 +1,14 @@
 package cmd
 
 import (
+	"fmt"
+	"syscall"
+
 	"github.com/gophercloud/utils/openstack/clientconfig"
 	"github.com/mchlumsky/mracek/config"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"golang.org/x/term"
 	"gopkg.in/yaml.v3"
 )
 
@@ -18,6 +22,7 @@ func NewCreateCloudCommand() *cobra.Command {
 		RunE:  createCloudCommandRunE(&cloud),
 	}
 
+	cmd.Flags().Bool("password-prompt", false, "Prompt for password")
 	addAllFlags(cmd, &cloud)
 
 	return cmd
@@ -42,6 +47,24 @@ func createCloudCommandRunE(cloud *clientconfig.Cloud) func(cmd *cobra.Command, 
 		if cloud.AuthInfo.Password != "" {
 			secure[args[0]] = clientconfig.Cloud{AuthInfo: &clientconfig.AuthInfo{Password: cloud.AuthInfo.Password}}
 			cloud.AuthInfo.Password = ""
+		}
+
+		passPrompt, err := cmd.Flags().GetBool("password-prompt")
+		if err != nil {
+			return err
+		}
+
+		if passPrompt {
+			_, _ = fmt.Fprintf(cmd.OutOrStdout(), "Enter password:")
+
+			bytepw, err := term.ReadPassword(syscall.Stdin)
+			if err != nil {
+				return err
+			}
+
+			_, _ = fmt.Fprintf(cmd.OutOrStdout(), "\n")
+
+			secure[args[0]] = clientconfig.Cloud{AuthInfo: &clientconfig.AuthInfo{Password: string(bytepw)}}
 		}
 
 		c := map[string]map[string]clientconfig.Cloud{"clouds": clouds}
