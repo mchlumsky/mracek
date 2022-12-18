@@ -184,10 +184,10 @@ func TestRun(t *testing.T) {
 
 	data := []testItem{
 		{
-			"no args",
-			map[string]string{},
-			[]string{"--os-config-dir", "testdata"},
-			`alberta
+			name: "no args",
+			env:  map[string]string{},
+			args: []string{"--os-config-dir", "testdata"},
+			expected: `alberta
 all_fields
 all_from_profile
 arizona
@@ -210,14 +210,13 @@ texas
 virginia
 yukon
 `,
-			nil,
+			expectedErr: nil,
 		},
 		{
-			"with cloud",
-			map[string]string{"MRACEK_SHELL": "/bin/bash"},
-			[]string{"--os-config-dir", "testdata", "nevada"},
-			"Switching to cloud nevada\n",
-			nil,
+			name:     "with cloud",
+			env:      map[string]string{"MRACEK_SHELL": "/bin/bash"},
+			args:     []string{"--os-config-dir", "testdata", "nevada"},
+			expected: "Switching to cloud nevada\n",
 		},
 	}
 

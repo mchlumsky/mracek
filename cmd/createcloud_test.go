@@ -10,17 +10,12 @@ func TestCreateCloudCommand(t *testing.T) {
 
 	data := []testItem{
 		{
-			name:        "test cloud creation",
-			env:         nil,
-			args:        []string{"create-cloud", "--os-config-dir", confDir, "--password", "secret", "new-cloud"},
-			expected:    "",
-			expectedErr: nil,
+			name: "test cloud creation",
+			args: []string{"create-cloud", "--os-config-dir", confDir, "--password", "secret", "new-cloud"},
 		},
 		{
 			name:        "test cloud creation twice fail",
-			env:         nil,
 			args:        []string{"create-cloud", "--os-config-dir", confDir, "new-cloud"},
-			expected:    "",
 			expectedErr: fmt.Errorf("cloud new-cloud already exists in clouds.yaml"),
 		},
 	}
