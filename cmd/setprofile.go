@@ -2,12 +2,14 @@ package cmd
 
 import (
 	"fmt"
+	"syscall"
 
 	"github.com/gophercloud/utils/openstack/clientconfig"
 	"github.com/imdario/mergo"
 	"github.com/mchlumsky/mracek/config"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"golang.org/x/term"
 	"gopkg.in/yaml.v3"
 )
 
@@ -34,6 +36,7 @@ func NewSetProfileCommand() *cobra.Command {
 	return cmd
 }
 
+//nolint:cyclop,funlen
 func setProfileCommandRun(profileFlags *clientconfig.Cloud) func(cmd *cobra.Command, args []string) error {
 	return func(cmd *cobra.Command, args []string) error {
 		opts := config.YAMLOpts{Directory: viper.GetString("os-config-dir")}
@@ -46,6 +49,28 @@ func setProfileCommandRun(profileFlags *clientconfig.Cloud) func(cmd *cobra.Comm
 		profile, ok := profiles[args[0]]
 		if !ok {
 			return fmt.Errorf("error: profile %s not found", args[0])
+		}
+
+		passPrompt, err := cmd.Flags().GetBool("password-prompt")
+		if err != nil {
+			return err
+		}
+
+		if passPrompt {
+			_, _ = fmt.Fprintf(cmd.OutOrStdout(), "Enter password:")
+
+			bytepw, err := term.ReadPassword(syscall.Stdin)
+			if err != nil {
+				return err
+			}
+
+			_, _ = fmt.Fprintf(cmd.OutOrStdout(), "\n")
+
+			if profile.AuthInfo == nil {
+				profile.AuthInfo = &clientconfig.AuthInfo{}
+			}
+
+			profile.AuthInfo.Password = string(bytepw)
 		}
 
 		// override cloud's fields with flags that are not zero-valued

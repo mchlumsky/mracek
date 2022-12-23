@@ -22,7 +22,6 @@ func NewCreateCloudCommand() *cobra.Command {
 		RunE:  createCloudCommandRunE(&cloud),
 	}
 
-	cmd.Flags().Bool("password-prompt", false, "Prompt for password")
 	addAllFlags(cmd, &cloud)
 
 	return cmd
