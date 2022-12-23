@@ -7,20 +7,19 @@ import (
 func TestShowProfileCommand(t *testing.T) {
 	data := []testItem{
 		{
-			"rackspace",
-			map[string]string{},
-			[]string{"--os-config-dir", "testdata", "show-profile", "rackspace"},
-			`---
+			name: "rackspace",
+			env:  map[string]string{},
+			args: []string{"--os-config-dir", "testdata", "show-profile", "rackspace"},
+			expected: `---
 auth:
     auth_url: https://identity.api.rackspacecloud.com/v2.0/
 `,
-			nil,
 		},
 		{
-			"all_from_profile",
-			map[string]string{},
-			[]string{"--os-config-dir", "testdata", "show-profile", "all_fields"},
-			`---
+			name: "all_from_profile",
+			env:  map[string]string{},
+			args: []string{"--os-config-dir", "testdata", "show-profile", "all_fields"},
+			expected: `---
 profile: some_profile
 auth:
     auth_url: https://all.example.com:5000/v3
@@ -50,7 +49,6 @@ cacert: foo.crt
 cert: bar.crt
 key: bar.key
 `,
-			nil,
 		},
 	}
 

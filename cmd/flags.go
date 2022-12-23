@@ -47,6 +47,7 @@ func addAllFlags(cmd *cobra.Command, cloud *clientconfig.Cloud) {
 	cmd.Flags().StringVar(&cloud.CACertFile, "ca-cert-file", "", "")
 	cmd.Flags().StringVar(&cloud.ClientCertFile, "client-cert-file", "", "")
 	cmd.Flags().StringVar(&cloud.ClientKeyFile, "client-key-file", "", "")
+	cmd.Flags().Bool("password-prompt", false, "Prompt for password")
 }
 
 func isFlagPassed(cmd *cobra.Command, name string) bool {

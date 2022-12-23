@@ -1,10 +1,14 @@
 package cmd
 
 import (
+	"fmt"
+	"syscall"
+
 	"github.com/gophercloud/utils/openstack/clientconfig"
 	"github.com/mchlumsky/mracek/config"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"golang.org/x/term"
 	"gopkg.in/yaml.v3"
 )
 
@@ -30,6 +34,28 @@ func createProfileCommandRunE(profile *clientconfig.Cloud) func(cmd *cobra.Comma
 		profiles, err := config.LoadAndCheckOSConfigfile("clouds-public.yaml", opts.LoadPublicCloudsYAML, args[0])
 		if err != nil {
 			return err
+		}
+
+		passPrompt, err := cmd.Flags().GetBool("password-prompt")
+		if err != nil {
+			return err
+		}
+
+		if passPrompt {
+			_, _ = fmt.Fprintf(cmd.OutOrStdout(), "Enter password:")
+
+			bytepw, err := term.ReadPassword(syscall.Stdin)
+			if err != nil {
+				return err
+			}
+
+			_, _ = fmt.Fprintf(cmd.OutOrStdout(), "\n")
+
+			if profile.AuthInfo == nil {
+				profile.AuthInfo = &clientconfig.AuthInfo{}
+			}
+
+			profile.AuthInfo.Password = string(bytepw)
 		}
 
 		profiles[args[0]] = *profile

@@ -1,11 +1,15 @@
 package cmd
 
 import (
+	"fmt"
+	"syscall"
+
 	"github.com/gophercloud/utils/openstack/clientconfig"
 	"github.com/imdario/mergo"
 	"github.com/mchlumsky/mracek/config"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"golang.org/x/term"
 	"gopkg.in/yaml.v3"
 )
 
@@ -103,6 +107,24 @@ func setCloudCommandRun(cloudFlags *clientconfig.Cloud) func(cmd *cobra.Command,
 		// override password if provided by the flag
 		if cloudFlags.AuthInfo.Password != "" {
 			secure[args[0]].AuthInfo.Password = cloudFlags.AuthInfo.Password
+		}
+
+		passPrompt, err := cmd.Flags().GetBool("password-prompt")
+		if err != nil {
+			return err
+		}
+
+		if passPrompt {
+			_, _ = fmt.Fprintf(cmd.OutOrStdout(), "Enter password:")
+
+			bytepw, err := term.ReadPassword(syscall.Stdin)
+			if err != nil {
+				return err
+			}
+
+			_, _ = fmt.Fprintf(cmd.OutOrStdout(), "\n")
+
+			secure[args[0]].AuthInfo.Password = string(bytepw)
 		}
 
 		// move application credential secret from clouds.yaml to secure.yaml
