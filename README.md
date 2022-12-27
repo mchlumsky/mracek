@@ -78,6 +78,9 @@ auth:
     domain_name: domain1
 region_name: region1
 verify: true
+
+# Copy cloud while changing the project name
+$ mracek copy-cloud --project-name new-project source-cloud destination-cloud
 ```
 
 ## Installation
