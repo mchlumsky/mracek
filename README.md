@@ -102,3 +102,7 @@ os-config-dir: /path/to/openstack/config
 # Can be overridden by environment variable MRACEK_SHELL
 shell: /usr/bin/zsh
 ```
+
+## Acknowledgements
+
+Special thanks to JetBrains for the Open Source development license. GoLand rules!
