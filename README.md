@@ -10,7 +10,7 @@ mracek (Czech word meaning "little cloud") is a small command line tool to manag
 
 mracek is inspired by the awesome [kubectx/kubens](https://github.com/ahmetb/kubectx).
 
-<img src="demo.gif" width="1300"  alt=""/>
+<img src="assets/demo.gif" width="1300"  alt=""/>
 
 ## Features
 
