@@ -94,6 +94,9 @@ os-config-dir: /path/to/openstack/config
 
 # Can be overridden by environment variable MRACEK_SHELL
 shell: /usr/bin/zsh
+
+# Only export the OS_CLOUD variable when calling `mracek <cloud-name>`
+os-cloud-only: true
 ```
 
 ## Acknowledgements
