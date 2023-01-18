@@ -91,6 +91,53 @@ func TestFormatCloudsStringWithInvalidOSCloud(t *testing.T) {
 	}
 }
 
+func TestSetCloudEnvAllFieldsOSCloudOnly(t *testing.T) {
+	t.Cleanup(cleanEnv)
+
+	expected := map[string]string{
+		"OS_AUTH_URL":                      "https://all.example.com:5000/v3",
+		"OS_USERNAME":                      "jdoe",
+		"OS_PASSWORD":                      "password",
+		"OS_PROJECT_NAME":                  "Some Project",
+		"OS_PROJECT_ID":                    "Some Project ID",
+		"OS_TENANT_NAME":                   "Some Project",
+		"OS_TENANT_ID":                     "Some Project ID",
+		"OS_PROJECT_DOMAIN_NAME":           "default",
+		"OS_PROJECT_DOMAIN_ID":             "fedcba",
+		"OS_USER_DOMAIN_NAME":              "default",
+		"OS_USER_DOMAIN_ID":                "abcde",
+		"OS_DOMAIN_NAME":                   "default",
+		"OS_DOMAIN_ID":                     "Default",
+		"OS_APPLICATION_CREDENTIAL_ID":     "app-cred-id",
+		"OS_APPLICATION_CREDENTIAL_SECRET": "secret",
+		"OS_APPLICATION_CREDENTIAL_NAME":   "app-cred-name",
+		"OS_REGION_NAME":                   "ALL",
+	}
+
+	for k := range expected {
+		if v, ok := os.LookupEnv(k); ok {
+			t.Errorf("%s should not be set but is set to \"%s\"", k, v)
+		}
+	}
+
+	opts := config.YAMLOpts{Directory: "testdata"}
+	if err := setCloudEnv("all_fields", opts, true); err != nil {
+		t.Errorf("error setting environment: %v", err)
+	}
+
+	if v, ok := os.LookupEnv("OS_CLOUD"); !ok {
+		t.Error("OS_CLOUD is not set, but it should be")
+	} else if v != "all_fields" {
+		t.Errorf("OS_CLOUD set to %s when it should be 'all_fields'", v)
+	}
+
+	for k := range expected {
+		if _, ok := os.LookupEnv(k); ok {
+			t.Errorf("%s is set but shouldn't", k)
+		}
+	}
+}
+
 func TestSetCloudEnvAllFields(t *testing.T) {
 	t.Cleanup(cleanEnv)
 
@@ -122,7 +169,7 @@ func TestSetCloudEnvAllFields(t *testing.T) {
 	}
 
 	opts := config.YAMLOpts{Directory: "testdata"}
-	if err := setCloudEnv("all_fields", opts); err != nil {
+	if err := setCloudEnv("all_fields", opts, false); err != nil {
 		t.Errorf("error setting environment: %v", err)
 	}
 
@@ -139,7 +186,7 @@ func TestSetCloudEnvWithNullChar(t *testing.T) {
 	t.Cleanup(cleanEnv)
 
 	opts := config.YAMLOpts{}
-	if err := setCloudEnv("region_has_null_char", opts); err == nil {
+	if err := setCloudEnv("region_has_null_char", opts, false); err == nil {
 		t.Errorf("setting environment should have failed but didn't: %v", err)
 	}
 }
@@ -162,11 +209,11 @@ func TestSetCloudEnv(t *testing.T) {
 	}
 
 	opts := config.YAMLOpts{Directory: "testdata"}
-	if err := setCloudEnv("foo", opts); err == nil {
+	if err := setCloudEnv("foo", opts, false); err == nil {
 		t.Error("\"foo\" is not a valid cloud, an error should have been returned by setCloudEnv()")
 	}
 
-	if err := setCloudEnv("hawaii", opts); err != nil {
+	if err := setCloudEnv("hawaii", opts, false); err != nil {
 		t.Errorf("error setting environment: %v", err)
 	}
 

@@ -19,9 +19,10 @@ const (
 )
 
 type rootFlags struct {
-	cfgFile  string
-	shell    string
-	osCfgDir string
+	cfgFile     string
+	shell       string
+	osCfgDir    string
+	osCloudOnly bool
 }
 
 type showFlags struct {
@@ -65,6 +66,7 @@ func NewRootCommand(flags *rootFlags) *cobra.Command {
 	}
 
 	cmd.PersistentFlags().StringVar(&flags.cfgFile, "config", "", "config file (default \"$HOME/.mracek.yaml\")")
+
 	cmd.Flags().StringVarP(
 		&flags.shell,
 		"shell",
@@ -86,6 +88,15 @@ func NewRootCommand(flags *rootFlags) *cobra.Command {
 	cobra.CheckErr(viper.BindPFlag("os-config-dir", cmd.PersistentFlags().Lookup("os-config-dir")))
 	cobra.CheckErr(viper.BindEnv("os-config-dir", "MRACEK_OS_CONFIG_DIR"))
 
+	cmd.Flags().BoolVar(
+		&flags.osCloudOnly,
+		"os-cloud-only",
+		true,
+		"if true, only OS_CLOUD will be set in the environment",
+	)
+	cobra.CheckErr(viper.BindPFlag("os-cloud-only", cmd.Flags().Lookup("os-cloud-only")))
+	cobra.CheckErr(viper.BindEnv("os-cloud-only", "MRACEK_OS_CLOUD_ONLY"))
+
 	cmd.CompletionOptions.DisableDescriptions = true
 	cmd.SilenceUsage = true
 
@@ -106,7 +117,7 @@ func formatCloudsString(clouds []string) string {
 	return strings.Join(clouds, "\n") + "\n"
 }
 
-func setCloudEnv(cloudName string, opts config.YAMLOpts) error {
+func setCloudEnv(cloudName string, opts config.YAMLOpts, osCloudOnly bool) error {
 	co := clientconfig.ClientOpts{Cloud: cloudName, YAMLOpts: opts}
 
 	cloud, err := clientconfig.GetCloudFromYAML(&co)
@@ -114,28 +125,35 @@ func setCloudEnv(cloudName string, opts config.YAMLOpts) error {
 		return fmt.Errorf("error getting cloud from configuration: %w", err)
 	}
 
-	vars := map[string]string{
-		"OS_CLOUD":                         cloudName,
-		"OS_REGION_NAME":                   cloud.RegionName,
-		"OS_USERNAME":                      cloud.AuthInfo.Username,
-		"OS_USER_ID":                       cloud.AuthInfo.UserID,
-		"OS_PASSWORD":                      cloud.AuthInfo.Password,
-		"OS_PROJECT_NAME":                  cloud.AuthInfo.ProjectName,
-		"OS_PROJECT_ID":                    cloud.AuthInfo.ProjectID,
-		"OS_TENANT_NAME":                   cloud.AuthInfo.ProjectName,
-		"OS_TENANT_ID":                     cloud.AuthInfo.ProjectID,
-		"OS_AUTH_URL":                      cloud.AuthInfo.AuthURL,
-		"OS_DOMAIN_NAME":                   cloud.AuthInfo.DomainName,
-		"OS_DOMAIN_ID":                     cloud.AuthInfo.DomainID,
-		"OS_USER_DOMAIN_NAME":              cloud.AuthInfo.UserDomainName,
-		"OS_USER_DOMAIN_ID":                cloud.AuthInfo.UserDomainID,
-		"OS_PROJECT_DOMAIN_NAME":           cloud.AuthInfo.ProjectDomainName,
-		"OS_PROJECT_DOMAIN_ID":             cloud.AuthInfo.ProjectDomainID,
-		"OS_APPLICATION_CREDENTIAL_SECRET": cloud.AuthInfo.ApplicationCredentialSecret,
-		"OS_APPLICATION_CREDENTIAL_ID":     cloud.AuthInfo.ApplicationCredentialID,
-		"OS_APPLICATION_CREDENTIAL_NAME":   cloud.AuthInfo.ApplicationCredentialName,
-		"OS_TOKEN":                         cloud.AuthInfo.Token,
-		"OS_DEFAULT_DOMAIN":                cloud.AuthInfo.DefaultDomain,
+	var vars map[string]string
+	if osCloudOnly {
+		vars = map[string]string{
+			"OS_CLOUD": cloudName,
+		}
+	} else {
+		vars = map[string]string{
+			"OS_CLOUD":                         cloudName,
+			"OS_REGION_NAME":                   cloud.RegionName,
+			"OS_USERNAME":                      cloud.AuthInfo.Username,
+			"OS_USER_ID":                       cloud.AuthInfo.UserID,
+			"OS_PASSWORD":                      cloud.AuthInfo.Password,
+			"OS_PROJECT_NAME":                  cloud.AuthInfo.ProjectName,
+			"OS_PROJECT_ID":                    cloud.AuthInfo.ProjectID,
+			"OS_TENANT_NAME":                   cloud.AuthInfo.ProjectName,
+			"OS_TENANT_ID":                     cloud.AuthInfo.ProjectID,
+			"OS_AUTH_URL":                      cloud.AuthInfo.AuthURL,
+			"OS_DOMAIN_NAME":                   cloud.AuthInfo.DomainName,
+			"OS_DOMAIN_ID":                     cloud.AuthInfo.DomainID,
+			"OS_USER_DOMAIN_NAME":              cloud.AuthInfo.UserDomainName,
+			"OS_USER_DOMAIN_ID":                cloud.AuthInfo.UserDomainID,
+			"OS_PROJECT_DOMAIN_NAME":           cloud.AuthInfo.ProjectDomainName,
+			"OS_PROJECT_DOMAIN_ID":             cloud.AuthInfo.ProjectDomainID,
+			"OS_APPLICATION_CREDENTIAL_SECRET": cloud.AuthInfo.ApplicationCredentialSecret,
+			"OS_APPLICATION_CREDENTIAL_ID":     cloud.AuthInfo.ApplicationCredentialID,
+			"OS_APPLICATION_CREDENTIAL_NAME":   cloud.AuthInfo.ApplicationCredentialName,
+			"OS_TOKEN":                         cloud.AuthInfo.Token,
+			"OS_DEFAULT_DOMAIN":                cloud.AuthInfo.DefaultDomain,
+		}
 	}
 
 	for key, value := range vars {
@@ -182,7 +200,7 @@ func rootCommandRun(_ *rootFlags) func(cmd *cobra.Command, args []string) {
 		} else {
 			_, _ = fmt.Fprintf(cmd.OutOrStdout(), "Switching to cloud %s\n", args[0])
 
-			err := setCloudEnv(args[0], opts)
+			err := setCloudEnv(args[0], opts, viper.GetBool("os-cloud-only"))
 			if err != nil {
 				_, _ = fmt.Fprintln(cmd.ErrOrStderr(), fmt.Errorf("failed to set cloud environment: %w", err))
 
