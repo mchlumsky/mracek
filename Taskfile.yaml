@@ -38,3 +38,14 @@ tasks:
       - go test -v -cover -coverprofile=c.out ./...
       - go tool cover -func=c.out
       - rm c.out
+
+  demo:
+    env:
+      MRACEK_OS_CONFIG_DIR: ./
+    dir: assets/
+    cmds:
+      - echo $MRACEK_OS_CONFIG_DIR
+      - echo $PWD
+      - vhs demo.tape
+      - rm clouds.yaml
+      - rm secure.yaml

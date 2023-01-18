@@ -46,6 +46,18 @@ Set FontSize 22
 Set Width 1300
 Set Height 650
 
+Type@0.01 "mracek create-cloud --auth-url https://example.com:5000/v3 --username user1 --password very_secure --project-name project1 --default-domain default cloud1"
+Enter
+Sleep 3s
+
+Type@0.01 "mracek create-cloud cloud2"
+Enter
+Sleep 1.5s
+
+Type@0.01 "mracek create-cloud cloud3"
+Enter
+Sleep 1.5s
+
 Type "mracek"
 Enter
 Sleep 3s
@@ -54,23 +66,11 @@ Type "mracek show-cloud cloud1"
 Enter
 Sleep 3s
 
-Type "env|grep OS_"
-Enter
-Sleep 3s
-
 Type "mracek cloud1"
 Enter
 Sleep 3s
 
-Type "env|grep OS_"
-Enter
-Sleep 3s
-
-Type "mracek"
-Enter
-Sleep 3s
-
-Type "mracek delete-cloud cloud2"
+Type "env|grep ^OS_"
 Enter
 Sleep 3s
 
@@ -82,10 +82,19 @@ Type "exit"
 Enter
 Sleep 3s
 
-Type "env|grep OS_"
+Type "env|grep ^OS_"
 Enter
 Sleep 3s
 
 Type "mracek"
 Enter
-Sleep 5s
+Sleep 3s
+
+Type "mracek delete-cloud cloud1"
+Enter
+Sleep 3s
+
+Type "mracek"
+Enter
+Sleep 3s
+
