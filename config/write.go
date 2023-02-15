@@ -3,31 +3,75 @@ package config
 import (
 	"os"
 	"path"
+	"path/filepath"
+	"sort"
+	"strconv"
+	"time"
+
+	"github.com/spf13/cobra"
 )
+
+const (
+	BackupsToKeep = 4
+)
+
+// backupFile backs up the file at path while appending the unix timestamp. Keeps at most BackupsToKeep backup files.
+func backupFile(path string) {
+	if !fileExists(path) {
+		return
+	}
+
+	input, err := os.ReadFile(path)
+	cobra.CheckErr(err)
+
+	err = os.WriteFile(path+"-"+strconv.FormatInt(time.Now().Unix(), 10), input, 0o600) //nolint:gomnd
+	cobra.CheckErr(err)
+
+	backups, err := filepath.Glob(path + "-*")
+	cobra.CheckErr(err)
+
+	sort.Strings(backups)
+
+	// cleanup old backups while keeping the oldest backup
+	// 1 2 3 4 5   we want to keep 1 and delete 2 (len 5, max 4)
+	// 1 2 3 4 5 6   we want to keep 1 and delete 2 and 3 (len 6, max 4)
+	// 1 2 3 4 5 6 7  we want to keep 1 and delete 2, 3 and 4 (len 7, max 4)
+	if len(backups) > BackupsToKeep {
+		for i := 1; i < len(backups)-(BackupsToKeep-1); i++ {
+			cobra.CheckErr(os.Remove(backups[i]))
+		}
+	}
+}
 
 func WriteOSConfig(directory string, clouds, secure, public []byte) error {
 	if clouds != nil {
-		fn := path.Join(directory, "clouds.yaml")
+		f := path.Join(directory, "clouds.yaml")
 
-		err := os.WriteFile(fn, clouds, 0o600) //nolint:gomnd
+		backupFile(f)
+
+		err := os.WriteFile(f, clouds, 0o600) //nolint:gomnd
 		if err != nil {
 			return err
 		}
 	}
 
 	if secure != nil {
-		fn := path.Join(directory, "secure.yaml")
+		f := path.Join(directory, "secure.yaml")
 
-		err := os.WriteFile(fn, secure, 0o600) //nolint:gomnd
+		backupFile(f)
+
+		err := os.WriteFile(f, secure, 0o600) //nolint:gomnd
 		if err != nil {
 			return err
 		}
 	}
 
 	if public != nil {
-		fn := path.Join(directory, "clouds-public.yaml")
+		f := path.Join(directory, "clouds-public.yaml")
 
-		err := os.WriteFile(fn, public, 0o600) //nolint:gomnd
+		backupFile(f)
+
+		err := os.WriteFile(f, public, 0o600) //nolint:gomnd
 		if err != nil {
 			return err
 		}
