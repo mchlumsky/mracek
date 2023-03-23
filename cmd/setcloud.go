@@ -17,7 +17,7 @@ func NewSetCloudCommand() *cobra.Command {
 	cloudFlags := clientconfig.Cloud{AuthInfo: &clientconfig.AuthInfo{}, Verify: new(bool)}
 
 	cmd := &cobra.Command{
-		Use:   "set-cloud <cloud>",
+		Use:   "set-cloud [flags] CLOUD",
 		Short: "Set cloud details",
 		Long:  "Set cloud details",
 		RunE:  setCloudCommandRun(&cloudFlags),

@@ -15,7 +15,7 @@ import (
 func NewCreateProfileCommand() *cobra.Command {
 	profile := clientconfig.Cloud{AuthInfo: &clientconfig.AuthInfo{}, Verify: new(bool)}
 	cmd := &cobra.Command{
-		Use:   "create-profile [flags] <profile>",
+		Use:   "create-profile [flags] PROFILE",
 		Short: "Create profile",
 		Long:  "Create profile",
 		Args:  cobra.ExactArgs(1),

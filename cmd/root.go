@@ -51,7 +51,7 @@ func validArgsFunction(cloudsOrProfiles AllCloudsOrProfilesFunc) ValidArgsFunc {
 // NewRootCommand creates the root command.
 func NewRootCommand(flags *rootFlags) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "mracek [<cloud name>]",
+		Use:   "mracek [CLOUD]",
 		Short: "Do things with your OpenStack client configuration",
 		Long:  "Do things with your OpenStack client configuration",
 		Run:   rootCommandRun(flags),

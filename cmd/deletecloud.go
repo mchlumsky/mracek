@@ -10,7 +10,7 @@ import (
 
 func NewDeleteCloudCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "delete-cloud <cloud>",
+		Use:   "delete-cloud CLOUD",
 		Short: "Delete cloud",
 		Long:  "Delete cloud",
 		Args:  cobra.ExactArgs(1),

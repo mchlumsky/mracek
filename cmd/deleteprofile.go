@@ -10,7 +10,7 @@ import (
 
 func NewDeleteProfileCommand() *cobra.Command {
 	return &cobra.Command{
-		Use:   "delete-profile <profile>",
+		Use:   "delete-profile PROFILE",
 		Short: "Delete profile",
 		Long:  "Delete profile",
 		RunE:  deleteProfileCommandRunE(),

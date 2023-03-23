@@ -14,7 +14,7 @@ func NewShowProfileCommand() *cobra.Command {
 	flags := showFlags{}
 
 	cmd := &cobra.Command{
-		Use:   "show-profile <profile>",
+		Use:   "show-profile PROFILE",
 		Short: "Show profile details",
 		Long:  "Show profile details",
 		Args:  cobra.ExactArgs(1),

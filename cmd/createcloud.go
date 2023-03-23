@@ -15,7 +15,7 @@ import (
 func NewCreateCloudCommand() *cobra.Command {
 	cloud := clientconfig.Cloud{AuthInfo: &clientconfig.AuthInfo{}, Verify: new(bool)}
 	cmd := &cobra.Command{
-		Use:   "create-cloud [flags] <cloud>",
+		Use:   "create-cloud [flags] CLOUD",
 		Short: "Create cloud",
 		Long:  "Create cloud",
 		Args:  cobra.ExactArgs(1),
