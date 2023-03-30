@@ -233,6 +233,7 @@ func buildRootCommand() *cobra.Command {
 	rootCmd.AddCommand(NewDeleteCloudCommand())
 	rootCmd.AddCommand(NewDeleteProfileCommand())
 	rootCmd.AddCommand(NewCopyCloudCommand())
+	rootCmd.AddCommand(NewSmokeTestsCommand())
 
 	return rootCmd
 }
