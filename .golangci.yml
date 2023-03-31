@@ -49,7 +49,6 @@ linters:
     - importas
     - ineffassign
     - interfacebloat
-    - ireturn
     - lll
     - logrlint
     - maintidx

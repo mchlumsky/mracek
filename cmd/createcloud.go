@@ -15,7 +15,7 @@ import (
 func NewCreateCloudCommand() *cobra.Command {
 	cloud := clientconfig.Cloud{AuthInfo: &clientconfig.AuthInfo{}, Verify: new(bool)}
 	cmd := &cobra.Command{
-		Use:   "create-cloud [flags] <cloud>",
+		Use:   "create-cloud [flags] CLOUD",
 		Short: "Create cloud",
 		Long:  "Create cloud",
 		Args:  cobra.ExactArgs(1),
@@ -80,10 +80,8 @@ func createCloudCommandRunE(cloud *clientconfig.Cloud) func(cmd *cobra.Command, 
 			return err
 		}
 
-		if err := config.WriteOSConfig(viper.GetString("os-config-dir"), cloudsOut, secureOut, nil); err != nil {
-			return err
-		}
+		err = config.WriteOSConfig(viper.GetString("os-config-dir"), cloudsOut, secureOut, nil)
 
-		return nil
+		return err
 	}
 }

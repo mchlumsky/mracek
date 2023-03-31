@@ -10,7 +10,7 @@ import (
 
 func NewDeleteCloudCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "delete-cloud <cloud>",
+		Use:   "delete-cloud CLOUD",
 		Short: "Delete cloud",
 		Long:  "Delete cloud",
 		Args:  cobra.ExactArgs(1),
@@ -58,10 +58,8 @@ func deleteCloudCommandRunE() func(cmd *cobra.Command, args []string) error {
 			return err
 		}
 
-		if err := config.WriteOSConfig(viper.GetString("os-config-dir"), cloudsOut, secureOut, nil); err != nil {
-			return err
-		}
+		err = config.WriteOSConfig(viper.GetString("os-config-dir"), cloudsOut, secureOut, nil)
 
-		return nil
+		return err
 	}
 }

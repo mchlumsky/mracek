@@ -14,7 +14,7 @@ func NewShowCloudCommand() *cobra.Command {
 	flags := showFlags{}
 
 	cmd := &cobra.Command{
-		Use:   "show-cloud <cloud>",
+		Use:   "show-cloud CLOUD",
 		Short: "Show cloud details",
 		Long:  "Show cloud details",
 		Args:  cobra.ExactArgs(1),

@@ -17,7 +17,7 @@ func NewCopyCloudCommand() *cobra.Command {
 	cloudFlags := clientconfig.Cloud{AuthInfo: &clientconfig.AuthInfo{}, Verify: new(bool)}
 
 	cmd := &cobra.Command{
-		Use:   "copy-cloud [flags] <source-cloud> <destination-cloud>",
+		Use:   "copy-cloud [flags] SOURCE-CLOUD DESTINATION-CLOUD",
 		Short: "Copy cloud",
 		Long:  "Copy a source cloud into a new destination cloud while optionally overriding cloud properties",
 		Args:  cobra.ExactArgs(2), //nolint:gomnd

@@ -17,7 +17,7 @@ func NewSetProfileCommand() *cobra.Command {
 	profileFlags := clientconfig.Cloud{AuthInfo: &clientconfig.AuthInfo{}, Verify: new(bool)}
 
 	cmd := &cobra.Command{
-		Use:   "set-profile <profile>",
+		Use:   "set-profile [flags] PROFILE",
 		Short: "Set profile details",
 		Long:  "Set profile details",
 		RunE:  setProfileCommandRun(&profileFlags),
