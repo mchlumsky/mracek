@@ -67,10 +67,8 @@ func createProfileCommandRunE(profile *clientconfig.Cloud) func(cmd *cobra.Comma
 			return err
 		}
 
-		if err := config.WriteOSConfig(viper.GetString("os-config-dir"), nil, nil, publicOut); err != nil {
-			return err
-		}
+		err = config.WriteOSConfig(viper.GetString("os-config-dir"), nil, nil, publicOut)
 
-		return nil
+		return err
 	}
 }

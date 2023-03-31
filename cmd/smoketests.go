@@ -31,6 +31,7 @@ import (
 )
 
 const (
+	//nolint:varnamelen
 	OK          = "OK"
 	Fail        = "Fail"
 	Testing     = "Testing"

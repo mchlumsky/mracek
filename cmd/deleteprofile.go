@@ -42,10 +42,8 @@ func deleteProfileCommandRunE() func(cmd *cobra.Command, args []string) error {
 			return err
 		}
 
-		if err := config.WriteOSConfig(viper.GetString("os-config-dir"), nil, nil, publicCloudsOut); err != nil {
-			return err
-		}
+		err = config.WriteOSConfig(viper.GetString("os-config-dir"), nil, nil, publicCloudsOut)
 
-		return nil
+		return err
 	}
 }

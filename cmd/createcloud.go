@@ -80,10 +80,8 @@ func createCloudCommandRunE(cloud *clientconfig.Cloud) func(cmd *cobra.Command, 
 			return err
 		}
 
-		if err := config.WriteOSConfig(viper.GetString("os-config-dir"), cloudsOut, secureOut, nil); err != nil {
-			return err
-		}
+		err = config.WriteOSConfig(viper.GetString("os-config-dir"), cloudsOut, secureOut, nil)
 
-		return nil
+		return err
 	}
 }
