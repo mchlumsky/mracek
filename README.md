@@ -74,6 +74,13 @@ $ mracek set-profile  --project-name project1 profile1
 
 # Copy cloud while changing the project name
 $ mracek copy-cloud --project-name new-project source-cloud destination-cloud
+
+# Smoke tests are basic tests, basically mracek just lists resources from several services (servers for nova, networks for neutron, etc...)
+# Run smoke tests against a specific cloud
+$ mracek smoke-tests some-cloud
+
+# Run smoke tests against all regions in parallel
+$ mracek smoke-tests
 ```
 
 ## Installation
