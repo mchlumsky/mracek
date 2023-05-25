@@ -3,7 +3,7 @@ module github.com/mchlumsky/mracek
 go 1.20
 
 require (
-	github.com/charmbracelet/bubbletea v0.24.0
+	github.com/charmbracelet/bubbletea v0.24.1
 	github.com/google/go-cmp v0.5.9
 	github.com/gophercloud/gophercloud v1.3.0
 	github.com/gophercloud/utils v0.0.0-20230330070308-5bd5e1d608f8
