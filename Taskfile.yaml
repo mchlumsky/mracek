@@ -18,6 +18,8 @@ tasks:
       - test-release
 
   test:
+    env:
+      CGO_ENABLED: 1
     cmds:
       - go test -cover -v -race $(go list ./...)
 
