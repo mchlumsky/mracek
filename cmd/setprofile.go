@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"syscall"
 
+	"dario.cat/mergo"
 	"github.com/gophercloud/utils/openstack/clientconfig"
-	"github.com/imdario/mergo"
 	"github.com/mchlumsky/mracek/config"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
