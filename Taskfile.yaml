@@ -25,7 +25,7 @@ tasks:
 
   test-release:
     cmds:
-      - goreleaser release --skip-validate --skip-publish --rm-dist --snapshot
+      - goreleaser release --skip-validate --skip-publish --clean --snapshot
 
   release:
     vars:
@@ -33,7 +33,7 @@ tasks:
       # generate a changelog.
       GIT_DEPTH: 0
     cmds:
-      - goreleaser release --rm-dist
+      - goreleaser release --clean
 
   coverage:
     cmds:
