@@ -6,7 +6,7 @@ require (
 	dario.cat/mergo v1.0.0
 	github.com/charmbracelet/bubbletea v0.24.2
 	github.com/google/go-cmp v0.5.9
-	github.com/gophercloud/gophercloud v1.5.0
+	github.com/gophercloud/gophercloud v1.6.0
 	github.com/gophercloud/utils v0.0.0-20230523080330-de873b9cf00d
 	github.com/muesli/termenv v0.15.2
 	github.com/spf13/cobra v1.7.0
