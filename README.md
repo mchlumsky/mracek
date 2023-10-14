@@ -85,6 +85,21 @@ $ mracek smoke-tests
 
 ## Installation
 
+### Fedora
+
+```shell
+dnf copr enable mchlumsky/mracek
+dnf install mracek
+```
+
+### Releases
+
+Download and install a prebuilt release from [here](https://github.com/mchlumsky/mracek/releases)
+
+### From source
+
+Install from source:
+
 ```shell
 go install github.com/mchlumsky/mracek@latest
 ```
