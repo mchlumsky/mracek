@@ -5,6 +5,7 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE.md)
 [![Build status](https://img.shields.io/github/actions/workflow/status/mchlumsky/mracek/build.yml?branch=main)](https://github.com/mchlumsky/mracek/actions?workflow=build)
 [![Powered By: GoReleaser](https://img.shields.io/badge/powered%20by-goreleaser-green.svg)](https://github.com/goreleaser)
+[![Copr build status](https://copr.fedorainfracloud.org/coprs/mchlumsky/mracek/package/mracek/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/mchlumsky/mracek/package/mracek/)
 
 mracek (Czech word meaning "little cloud") is a small command line tool to manage your OpenStack [configuration files](https://docs.openstack.org/os-client-config/latest/user/configuration.html#config-files).
 
