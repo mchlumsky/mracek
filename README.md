@@ -19,6 +19,11 @@ mracek is inspired by the awesome [kubectx/kubens](https://github.com/ahmetb/kub
 * mracek is opinionated about where it puts secrets (passwords, application credential secrets) and always puts them in secrets.yaml
 * the directory where the openstack config files are stored is configurable (defaults to `$HOME/.config/openstack/`). See configuration section below.
 
+### Smoke tests
+
+<img src="assets/smoke-tests.gif" width="1300"  alt=""/>
+
+
 ## Examples
 ```shell
 # Create a cloud
