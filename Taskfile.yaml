@@ -51,3 +51,8 @@ tasks:
       - vhs demo.tape
       - rm clouds.yaml
       - rm secure.yaml
+
+  smoke-tests-demo:
+    dir: assets/
+    cmds:
+      - vhs smoke-tests.tape

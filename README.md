@@ -7,17 +7,27 @@
 [![Powered By: GoReleaser](https://img.shields.io/badge/powered%20by-goreleaser-green.svg)](https://github.com/goreleaser)
 [![Copr build status](https://copr.fedorainfracloud.org/coprs/mchlumsky/mracek/package/mracek/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/mchlumsky/mracek/package/mracek/)
 
-mracek (Czech word meaning "little cloud") is a small command line tool to manage your OpenStack [configuration files](https://docs.openstack.org/os-client-config/latest/user/configuration.html#config-files).
+mracek is a CLI tool to manage your OpenStack [configuration files](https://docs.openstack.org/os-client-config/latest/user/configuration.html#config-files).
 
-mracek is inspired by the awesome [kubectx/kubens](https://github.com/ahmetb/kubectx).
-
-<img src="assets/demo.gif" width="1300"  alt=""/>
+mracek is inspired by [kubectx/kubens](https://github.com/ahmetb/kubectx).
 
 ## Features
 
+* Create/delete/modify/copy clouds and profiles in your `$HOME/.config/openstack` configuration.
+* Switch to a desired openstack cloud simply with `mracek <cloud-name>`.
 * mracek supports auto-completion under bash, fish and zsh shells.
 * mracek is opinionated about where it puts secrets (passwords, application credential secrets) and always puts them in secrets.yaml
-* the directory where the openstack config files are stored is configurable (defaults to `$HOME/.config/openstack/`). See configuration section below.
+* The directory where the openstack config files are stored is configurable (defaults to `$HOME/.config/openstack/`). See configuration section below.
+* By setting the shell variable `OS_CLOUD`, mracek is compatible with [starship](https://starship.rs/).
+
+## Demo
+
+<img src="assets/demo.gif" width="1300"  alt=""/>
+
+### Smoke tests
+
+<img src="assets/smoke-tests.gif" width="1300"  alt=""/>
+
 
 ## Examples
 ```shell
@@ -124,4 +134,4 @@ os-cloud-only: true
 
 ## Acknowledgements
 
-Special thanks to JetBrains for the Open Source development license. GoLand rules!
+Special thanks to JetBrains for the Open Source development license.
