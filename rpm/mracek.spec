@@ -12,7 +12,7 @@ BuildRequires:  git
 Provides:       %{name} = %{version}
 
 %description
-mracek (Czech word meaning "little cloud") is a small command line tool to manage your OpenStack configuration files.
+mracek is a command line tool to manage your OpenStack configuration files.
 
 %global debug_package %{nil}
 
@@ -25,17 +25,17 @@ CGO_ENABLED=0 go build -v -o %{name}
 
 
 %install
-install -Dpm 0755 %{name} %{buildroot}%{_bindir}/%{name}
-install -Dpm 0644 completions/mracek.bash %{buildroot}%{bash_completions_dir}/%{name}
-install -Dpm 0644 completions/mracek.zsh %{buildroot}%{zsh_completions_dir}/_%{name}
-install -Dpm 0644 completions/mracek.fish %{buildroot}%{fish_completions_dir}/%{name}.fish
+install -Dpm 0755 %{name} %{buildroot}/%{_bindir}/%{name}
+install -Dpm 0644 completions/mracek.bash %{buildroot}/%{_datadir}/bash-completion/completions/%{name}
+install -Dpm 0644 completions/mracek.zsh %{buildroot}/%{_datadir}/zsh/site-functions/_%{name}
+install -Dpm 0644 completions/mracek.fish %{buildroot}/%{_datadir}/fish/vendor_completions.d/%{name}.fish
 
 
 %files
-%{_bindir}/%{name}
-%{bash_completions_dir}/%{name}
-%{zsh_completions_dir}/_%{name}
-%{fish_completions_dir}/%{name}.fish
+/%{_bindir}/%{name}
+/%{_datadir}/bash-completion/completions/%{name}
+/%{_datadir}/zsh/site-functions/_%{name}
+/%{_datadir}/fish/vendor_completions.d/%{name}.fish
 %license LICENSE.md
 
 
