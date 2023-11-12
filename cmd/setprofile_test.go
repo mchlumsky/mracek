@@ -11,6 +11,13 @@ func TestSetProfileCommand(t *testing.T) {
 
 	data := []testItem{
 		{
+			name:        "create profile some-profile",
+			env:         nil,
+			args:        []string{"--os-config-dir", confDir, "create-profile", "some-profile"},
+			expected:    "",
+			expectedErr: nil,
+		},
+		{
 			name:        "set profile new-profile before it exists",
 			env:         nil,
 			args:        []string{"--os-config-dir", confDir, "set-profile", "new-profile"},

@@ -81,7 +81,10 @@ type serviceStateMsg struct {
 type serviceStates map[regionName]map[serviceName]string
 
 func serviceClient(regName regionName, svcType string) (*gophercloud.ServiceClient, context.CancelFunc) {
-	opts := &clientconfig.ClientOpts{RegionName: string(regName)}
+	opts := &clientconfig.ClientOpts{
+		RegionName: string(regName),
+		YAMLOpts:   config.YAMLOpts{Directory: viper.GetString("os-config-dir")},
+	}
 
 	client, err := clientconfig.NewServiceClient(svcType, opts)
 	if err != nil {
@@ -307,10 +310,13 @@ func smokeTestsCommand(cmd *cobra.Command, args []string) {
 	mdl := model{svcStates: make(map[regionName]map[serviceName]string)}
 
 	if len(args) == 1 {
-		c, err := clientconfig.GetCloudFromYAML(&clientconfig.ClientOpts{Cloud: args[0]})
+		cloud, err := clientconfig.GetCloudFromYAML(&clientconfig.ClientOpts{
+			Cloud:    args[0],
+			YAMLOpts: config.YAMLOpts{Directory: viper.GetString("os-config-dir")},
+		})
 		cobra.CheckErr(err)
 
-		mdl.svcStates[regionName(c.RegionName)] = nil
+		mdl.svcStates[regionName(cloud.RegionName)] = nil
 	}
 
 	p := tea.NewProgram(mdl)
@@ -322,7 +328,10 @@ func smokeTestsCommand(cmd *cobra.Command, args []string) {
 }
 
 func identityClient(region string) (*gophercloud.ServiceClient, error) {
-	opts := &clientconfig.ClientOpts{RegionName: region}
+	opts := &clientconfig.ClientOpts{
+		RegionName: region,
+		YAMLOpts:   config.YAMLOpts{Directory: viper.GetString("os-config-dir")},
+	}
 
 	client, err := clientconfig.NewServiceClient("identity", opts)
 	if err != nil {
@@ -355,7 +364,7 @@ func filterEntries(entries []tokens.CatalogEntry, region regionName) []tokens.Ca
 func (m model) initialModel() tea.Msg {
 	client, err := identityClient("")
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to create identity client: %w", err)
 	}
 
 	allPages, err := catalog.List(client).AllPages()

@@ -1,6 +1,10 @@
 package cmd
 
 import (
+	"errors"
+	"fmt"
+	"io/fs"
+
 	"github.com/gophercloud/utils/openstack/clientconfig"
 	"github.com/mchlumsky/mracek/config"
 	"github.com/spf13/cobra"
@@ -33,6 +37,10 @@ func deleteCloudCommandRunE() func(cmd *cobra.Command, args []string) error {
 
 		clouds, err := config.LoadAndCheckOSConfigfile("clouds.yaml", opts.LoadCloudsYAML, "")
 		if err != nil {
+			if errors.Is(err, fs.ErrNotExist) {
+				return fmt.Errorf("try creating some clouds first with 'mracek create-cloud': %w", err)
+			}
+
 			return err
 		}
 

@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
+	"io/fs"
 	"syscall"
 
 	"github.com/gophercloud/utils/openstack/clientconfig"
@@ -33,7 +35,11 @@ func createProfileCommandRunE(profile *clientconfig.Cloud) func(cmd *cobra.Comma
 
 		profiles, err := config.LoadAndCheckOSConfigfile("clouds-public.yaml", opts.LoadPublicCloudsYAML, args[0])
 		if err != nil {
-			return err
+			if errors.Is(err, fs.ErrNotExist) {
+				profiles = make(map[string]clientconfig.Cloud)
+			} else {
+				return err
+			}
 		}
 
 		passPrompt, err := cmd.Flags().GetBool("password-prompt")

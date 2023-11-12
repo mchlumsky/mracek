@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
+	"io/fs"
 	"os"
 	"os/exec"
 	"path"
@@ -188,31 +190,40 @@ func runShell(shell string) error {
 func rootCommandRun(_ *rootFlags) func(cmd *cobra.Command, args []string) {
 	return func(cmd *cobra.Command, args []string) {
 		opts := config.YAMLOpts{Directory: viper.GetString("os-config-dir")}
+
 		if len(args) == 0 {
 			cloudNames, err := opts.AllCloudNames()
 			if err != nil {
+				if errors.Is(err, fs.ErrNotExist) {
+					_, _ = fmt.Fprintln(cmd.OutOrStdout(), "No clouds found.")
+
+					return
+				}
+
 				_, _ = fmt.Fprintln(cmd.ErrOrStderr(), fmt.Errorf("failed to load cloud names: %w", err))
 
 				os.Exit(1)
 			}
 
 			_, _ = fmt.Fprint(cmd.OutOrStdout(), formatCloudsString(cloudNames))
-		} else {
-			_, _ = fmt.Fprintf(cmd.OutOrStdout(), "Switching to cloud %s\n", args[0])
 
-			err := setCloudEnv(args[0], opts, viper.GetBool("os-cloud-only"))
-			if err != nil {
-				_, _ = fmt.Fprintln(cmd.ErrOrStderr(), fmt.Errorf("failed to set cloud environment: %w", err))
+			return
+		}
 
-				os.Exit(1)
-			}
+		_, _ = fmt.Fprintf(cmd.OutOrStdout(), "Switching to cloud %s\n", args[0])
 
-			err = runShell(viper.GetString("shell"))
-			if err != nil {
-				_, _ = fmt.Fprintln(cmd.ErrOrStderr(), fmt.Errorf("failed to run shell: %w", err))
+		err := setCloudEnv(args[0], opts, viper.GetBool("os-cloud-only"))
+		if err != nil {
+			_, _ = fmt.Fprintln(cmd.ErrOrStderr(), fmt.Errorf("failed to set cloud environment: %w", err))
 
-				os.Exit(1)
-			}
+			os.Exit(1)
+		}
+
+		err = runShell(viper.GetString("shell"))
+		if err != nil {
+			_, _ = fmt.Fprintln(cmd.ErrOrStderr(), fmt.Errorf("failed to run shell: %w", err))
+
+			os.Exit(1)
 		}
 	}
 }

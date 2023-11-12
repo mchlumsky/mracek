@@ -1,6 +1,8 @@
 package config
 
 import (
+	"errors"
+	"io/fs"
 	"os"
 	"path"
 	"path/filepath"
@@ -17,11 +19,11 @@ const (
 
 // backupFile backs up the file at path while appending the unix timestamp. Keeps at most BackupsToKeep backup files.
 func backupFile(path string) {
-	if !fileExists(path) {
+	input, err := os.ReadFile(path)
+	if errors.Is(err, fs.ErrNotExist) {
 		return
 	}
 
-	input, err := os.ReadFile(path)
 	cobra.CheckErr(err)
 
 	err = os.WriteFile(path+"-"+strconv.FormatInt(time.Now().Unix(), 10), input, 0o600) //nolint:gomnd
@@ -44,6 +46,10 @@ func backupFile(path string) {
 }
 
 func WriteOSConfig(directory string, clouds, secure, public []byte) error {
+	if err := os.MkdirAll(directory, 0o755); err != nil {
+		return err
+	}
+
 	if clouds != nil {
 		f := path.Join(directory, "clouds.yaml")
 

@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
+	"io/fs"
 	"os"
 
 	"github.com/mchlumsky/mracek/config"
@@ -38,6 +40,10 @@ func showProfileCommandRun(cmd *cobra.Command, args []string) error {
 
 	profiles, err := opts.LoadPublicCloudsYAML()
 	if err != nil {
+		if errors.Is(err, fs.ErrNotExist) {
+			return fmt.Errorf("try creating some profiles first with 'mracek create-profile': %w", err)
+		}
+
 		return err
 	}
 

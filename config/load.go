@@ -13,15 +13,6 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// fileExists checks for the existence of a file at a given location.
-func fileExists(filename string) bool {
-	if _, err := os.Stat(filename); err == nil {
-		return true
-	}
-
-	return false
-}
-
 // FindAndReadYAML looks for filename in home directory if dir is empty, otherwise looks in specified directory.
 func FindAndReadYAML(dir, filename string) (string, []byte, error) {
 	if dir == "" {
@@ -40,16 +31,12 @@ func FindAndReadYAML(dir, filename string) (string, []byte, error) {
 
 	fullPath := filepath.Join(dir, filename)
 
-	if ok := fileExists(fullPath); ok {
-		content, err := os.ReadFile(fullPath)
-		if err != nil {
-			return "", nil, fmt.Errorf("%w", err)
-		}
-
-		return fullPath, content, nil
+	content, err := os.ReadFile(fullPath)
+	if err != nil {
+		return "", nil, fmt.Errorf("%w", err)
 	}
 
-	return "", nil, fmt.Errorf("file %s does not exist", fullPath)
+	return fullPath, content, nil
 }
 
 type Clouds struct {

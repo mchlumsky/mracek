@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
+	"io/fs"
 	"syscall"
 
 	"github.com/gophercloud/utils/openstack/clientconfig"
@@ -27,18 +29,27 @@ func NewCreateCloudCommand() *cobra.Command {
 	return cmd
 }
 
+//nolint:funlen,cyclop
 func createCloudCommandRunE(cloud *clientconfig.Cloud) func(cmd *cobra.Command, args []string) error {
 	return func(cmd *cobra.Command, args []string) error {
 		opts := config.YAMLOpts{Directory: viper.GetString("os-config-dir")}
 
 		clouds, err := config.LoadAndCheckOSConfigfile("clouds.yaml", opts.LoadCloudsYAML, args[0])
 		if err != nil {
-			return err
+			if errors.Is(err, fs.ErrNotExist) {
+				clouds = make(map[string]clientconfig.Cloud)
+			} else {
+				return err
+			}
 		}
 
 		secure, err := config.LoadAndCheckOSConfigfile("secure.yaml", opts.LoadSecureCloudsYAML, args[0])
 		if err != nil {
-			return err
+			if errors.Is(err, fs.ErrNotExist) {
+				secure = make(map[string]clientconfig.Cloud)
+			} else {
+				return err
+			}
 		}
 
 		clouds[args[0]] = *cloud
