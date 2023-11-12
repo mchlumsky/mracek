@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
+	"io/fs"
 	"sort"
 	"strings"
 
@@ -22,6 +24,10 @@ func NewListProfileCommand() *cobra.Command {
 			sort.Strings(profileNames)
 
 			if err != nil {
+				if errors.Is(err, fs.ErrNotExist) {
+					return fmt.Errorf("try creating some profiles first with 'mracek create-profile': %w", err)
+				}
+
 				return fmt.Errorf("failed to load profile names: %w", err)
 			}
 

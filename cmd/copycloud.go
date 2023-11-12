@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
+	"io/fs"
 	"syscall"
 
 	"dario.cat/mergo"
@@ -47,6 +49,10 @@ func copyCloudCommandRunE(cloudFlags *clientconfig.Cloud) func(cmd *cobra.Comman
 		// gets the cloud constructed from clouds.yaml+secure.yaml
 		cloud, err := clientconfig.GetCloudFromYAML(&co)
 		if err != nil {
+			if errors.Is(err, fs.ErrNotExist) {
+				return fmt.Errorf("try creating some clouds first with 'mracek create-cloud': %w", err)
+			}
+
 			return err
 		}
 

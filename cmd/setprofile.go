@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
+	"io/fs"
 	"syscall"
 
 	"dario.cat/mergo"
@@ -36,13 +38,17 @@ func NewSetProfileCommand() *cobra.Command {
 	return cmd
 }
 
-//nolint:cyclop,funlen
+//nolint:cyclop,funlen,gocognit
 func setProfileCommandRun(profileFlags *clientconfig.Cloud) func(cmd *cobra.Command, args []string) error {
 	return func(cmd *cobra.Command, args []string) error {
 		opts := config.YAMLOpts{Directory: viper.GetString("os-config-dir")}
 
 		profiles, err := config.LoadAndCheckOSConfigfile("clouds-public.yaml", opts.LoadPublicCloudsYAML, "")
 		if err != nil {
+			if errors.Is(err, fs.ErrNotExist) {
+				return fmt.Errorf("try creating some profiles first with 'mracek create-profile': %w", err)
+			}
+
 			return err
 		}
 
