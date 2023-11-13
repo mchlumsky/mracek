@@ -108,6 +108,13 @@ enabled=1
 gpgcheck=0
 ```
 
+and
+
+```shell
+dnf install mracek
+# or
+yum install mracek
+```
 ### APT/DEB repository (Debian, Ubuntu, etc...)
 
 To enable, add the following file /etc/apt/sources.list.d/mchlumsky.list:
@@ -116,15 +123,23 @@ To enable, add the following file /etc/apt/sources.list.d/mchlumsky.list:
 deb [trusted=yes] https://apt.fury.io/mchlumsky/ /
 ```
 
+and
+
+```shell
+apt update
+apt install mracek
+```
+
 ### Zypper repository (OpenSUSE)
 
 To enable, run the following command:
 
 ```shell
-$ zypper addrepo --no-gpgcheck https://yum.fury.io/mchlumsky/ mchlumsky
+zypper addrepo --no-gpgcheck https://yum.fury.io/mchlumsky/ mchlumsky
+zypper install mracek
 ```
 
-### Releases
+### Binary Releases
 
 Download and install a prebuilt release from [here](https://github.com/mchlumsky/mracek/releases)
 
