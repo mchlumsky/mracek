@@ -96,11 +96,32 @@ $ mracek smoke-tests
 
 ## Installation
 
-### Fedora
+### YUM/DNF repository (Fedora, CentOS, etc...)
+
+To enable, add the following file /etc/yum.repos.d/mchlumsky.repo:
+
+```
+[mchlumsky]
+name=mchlumsky repository (mracek, etc...)
+baseurl=https://yum.fury.io/mchlumsky/
+enabled=1
+gpgcheck=0
+```
+
+### APT/DEB repository (Debian, Ubuntu, etc...)
+
+To enable, add the following file /etc/apt/sources.list.d/mchlumsky.list:
+
+```
+deb [trusted=yes] https://apt.fury.io/mchlumsky/ /
+```
+
+### Zypper repository (OpenSUSE)
+
+To enable, run the following command:
 
 ```shell
-dnf copr enable mchlumsky/mracek
-dnf install mracek
+$ zypper addrepo --no-gpgcheck https://yum.fury.io/mchlumsky/ mchlumsky
 ```
 
 ### Releases
