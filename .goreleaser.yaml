@@ -62,4 +62,6 @@ publishers:
   - name: fury.io
     ids:
       - packages
+    env:
+      - "FURY_TOKEN={{ .FURY_TOKEN }}"
     cmd: ./scripts/fury-upload.sh {{ .ArtifactName }}
