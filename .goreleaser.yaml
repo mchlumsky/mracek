@@ -63,5 +63,5 @@ publishers:
     ids:
       - packages
     env:
-      - "FURY_TOKEN={{ .FURY_TOKEN }}"
+      - FURY_TOKEN={{ .Env.FURY_TOKEN }}
     cmd: ./scripts/fury-upload.sh {{ .ArtifactName }}
