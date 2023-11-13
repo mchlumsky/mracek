@@ -58,3 +58,10 @@ nfpms:
     formats:
       - deb
       - rpm
+publishers:
+  - name: fury.io
+    ids:
+      - packages
+    env:
+      - "FURY_TOKEN={{ .Env.FURY_TOKEN }}"
+    cmd: ./scripts/fury-upload.sh {{ .ArtifactName }}
