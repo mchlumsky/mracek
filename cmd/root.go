@@ -228,7 +228,7 @@ func rootCommandRun(_ *rootFlags) func(cmd *cobra.Command, args []string) {
 	}
 }
 
-func buildRootCommand() *cobra.Command {
+func buildRootCommand(version string) *cobra.Command {
 	rf := rootFlags{}
 	cobra.OnInitialize(initConfig(&rf))
 
@@ -245,14 +245,15 @@ func buildRootCommand() *cobra.Command {
 	rootCmd.AddCommand(NewDeleteProfileCommand())
 	rootCmd.AddCommand(NewCopyCloudCommand())
 	rootCmd.AddCommand(NewSmokeTestsCommand())
+	rootCmd.AddCommand(NewVersionCommand(version))
 
 	return rootCmd
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() {
-	rootCmd := buildRootCommand()
+func Execute(version string) {
+	rootCmd := buildRootCommand(version)
 
 	if rootCmd.Execute() != nil {
 		os.Exit(1)

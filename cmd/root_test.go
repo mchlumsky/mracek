@@ -311,7 +311,7 @@ func TestAllCloudNamesWithInvalidSecureYaml(t *testing.T) { //nolint:paralleltes
 }
 
 func TestShell(t *testing.T) {
-	cmd := buildRootCommand()
+	cmd := buildRootCommand("")
 	buffer := bytes.NewBufferString("")
 	cmd.SetOut(buffer)
 	cmd.SetArgs([]string{"--os-config-dir", "testdata"})
@@ -328,7 +328,7 @@ func TestShell(t *testing.T) {
 func TestShellOverrideFromEnv(t *testing.T) {
 	t.Setenv("MRACEK_SHELL", "foo")
 
-	cmd := buildRootCommand()
+	cmd := buildRootCommand("")
 	buffer := bytes.NewBufferString("")
 	cmd.SetOut(buffer)
 	cmd.SetArgs([]string{"--os-config-dir", "testdata"})

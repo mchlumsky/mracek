@@ -24,7 +24,7 @@ func testExecuteFunc(item testItem) func(t *testing.T) {
 			t.Setenv(k, v)
 		}
 
-		rootCommand := buildRootCommand()
+		rootCommand := buildRootCommand("")
 
 		buffer := bytes.NewBufferString("")
 		rootCommand.SetOut(buffer)
