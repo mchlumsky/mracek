@@ -32,7 +32,7 @@ func NewDeleteCloudCommand() *cobra.Command {
 }
 
 func deleteCloudCommandRunE() func(cmd *cobra.Command, args []string) error {
-	return func(cmd *cobra.Command, args []string) error {
+	return func(_ *cobra.Command, args []string) error {
 		opts := config.YAMLOpts{Directory: viper.GetString("os-config-dir")}
 
 		clouds, err := config.LoadAndCheckOSConfigfile("clouds.yaml", opts.LoadCloudsYAML, "")

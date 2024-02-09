@@ -17,7 +17,7 @@ func NewListProfileCommand() *cobra.Command {
 	return &cobra.Command{
 		Use:   "list-profiles",
 		Short: "List profiles",
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, _ []string) error {
 			opts := config.YAMLOpts{Directory: viper.GetString("os-config-dir")}
 
 			profileNames, err := opts.AllProfileNames()

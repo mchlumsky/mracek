@@ -29,7 +29,7 @@ func NewDeleteProfileCommand() *cobra.Command {
 }
 
 func deleteProfileCommandRunE() func(cmd *cobra.Command, args []string) error {
-	return func(cmd *cobra.Command, args []string) error {
+	return func(_ *cobra.Command, args []string) error {
 		opts := config.YAMLOpts{Directory: viper.GetString("os-config-dir")}
 
 		profiles, err := config.LoadAndCheckOSConfigfile("clouds-public.yaml", opts.LoadPublicCloudsYAML, "")

@@ -19,7 +19,7 @@ func NewVersionCommand(version string) *cobra.Command {
 }
 
 func versionCommand(version string) func(*cobra.Command, []string) {
-	return func(cmd *cobra.Command, args []string) {
+	return func(cmd *cobra.Command, _ []string) {
 		_, _ = fmt.Fprintln(cmd.OutOrStdout(), version)
 	}
 }
