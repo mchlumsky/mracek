@@ -76,7 +76,7 @@ func completionFn(setFn func(clientconfig.Cloud, []string, int)) func(
 	args []string,
 	toComplete string,
 ) ([]string, cobra.ShellCompDirective) {
-	return func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+	return func(_ *cobra.Command, _ []string, _ string) ([]string, cobra.ShellCompDirective) {
 		clouds := cloudsFromFiles()
 
 		properties := make([]string, len(clouds))
@@ -179,7 +179,7 @@ func addAllFlags(cmd *cobra.Command, cloud *clientconfig.Cloud) {
 
 	cmd.Flags().StringVar(&cloud.Profile, "profile", "", "")
 	cobra.CheckErr(cmd.RegisterFlagCompletionFunc("profile",
-		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+		func(_ *cobra.Command, _ []string, _ string) ([]string, cobra.ShellCompDirective) {
 			profiles, err := clientconfig.LoadPublicCloudsYAML()
 			cobra.CheckErr(err)
 
@@ -201,7 +201,7 @@ func addAllFlags(cmd *cobra.Command, cloud *clientconfig.Cloud) {
 
 	cmd.Flags().StringVar(&cloud.EndpointType, "endpoint-type", "", "")
 
-	interfaceFn := func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+	interfaceFn := func(_ *cobra.Command, _ []string, _ string) ([]string, cobra.ShellCompDirective) {
 		return []string{"public", "internal", "admin"}, cobra.ShellCompDirectiveNoFileComp
 	}
 	cobra.CheckErr(cmd.RegisterFlagCompletionFunc("endpoint-type", interfaceFn))
