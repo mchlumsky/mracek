@@ -2,6 +2,7 @@ package config
 
 import (
 	"errors"
+	"fmt"
 	"io/fs"
 	"os"
 	"path"
@@ -45,7 +46,13 @@ func backupFile(path string) {
 	}
 }
 
-func WriteOSConfig(directory string, clouds, secure, public []byte) error {
+func WriteOSConfig(directory string, clouds, secure, public []byte) (err error) {
+	defer func() {
+		if err != nil {
+			err = fmt.Errorf("failed to write configuration: %w", err)
+		}
+	}()
+
 	if err := os.MkdirAll(directory, 0o755); err != nil {
 		return err
 	}

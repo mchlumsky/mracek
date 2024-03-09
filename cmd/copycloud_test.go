@@ -165,7 +165,7 @@ key: client.key
 				"destination-cloud",
 			},
 			expected:    "",
-			expectedErr: fmt.Errorf("cloud destination-cloud already exists, use --force to overwrite"),
+			expectedErr: fmt.Errorf("failed to copy cloud: cloud destination-cloud already exists, use --force to overwrite"),
 		},
 		{
 			name: "copy cloud overwrite destination with --force",

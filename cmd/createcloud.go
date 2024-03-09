@@ -31,7 +31,13 @@ func NewCreateCloudCommand() *cobra.Command {
 
 //nolint:funlen,cyclop
 func createCloudCommandRunE(cloud *clientconfig.Cloud) func(cmd *cobra.Command, args []string) error {
-	return func(cmd *cobra.Command, args []string) error {
+	return func(cmd *cobra.Command, args []string) (err error) {
+		defer func() {
+			if err != nil {
+				err = fmt.Errorf("failed to create cloud: %w", err)
+			}
+		}()
+
 		opts := config.YAMLOpts{Directory: viper.GetString("os-config-dir")}
 
 		clouds, err := config.LoadAndCheckOSConfigfile("clouds.yaml", opts.LoadCloudsYAML, args[0])
@@ -92,7 +98,10 @@ func createCloudCommandRunE(cloud *clientconfig.Cloud) func(cmd *cobra.Command, 
 		}
 
 		err = config.WriteOSConfig(viper.GetString("os-config-dir"), cloudsOut, secureOut, nil)
+		if err != nil {
+			return err
+		}
 
-		return err
+		return nil
 	}
 }

@@ -35,7 +35,13 @@ func NewShowCloudCommand() *cobra.Command {
 	return cmd
 }
 
-func showCloudCommandRun(cmd *cobra.Command, args []string) error {
+func showCloudCommandRun(cmd *cobra.Command, args []string) (err error) {
+	defer func() {
+		if err != nil {
+			err = fmt.Errorf("failed to show cloud: %w", err)
+		}
+	}()
+
 	opts := config.YAMLOpts{Directory: viper.GetString("os-config-dir")}
 	co := clientconfig.ClientOpts{Cloud: args[0], YAMLOpts: opts}
 

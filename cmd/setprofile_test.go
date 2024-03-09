@@ -22,7 +22,7 @@ func TestSetProfileCommand(t *testing.T) {
 			env:         nil,
 			args:        []string{"--os-config-dir", confDir, "set-profile", "new-profile"},
 			expected:    "",
-			expectedErr: fmt.Errorf("error: profile new-profile not found"),
+			expectedErr: fmt.Errorf("failed to set profile: error: profile new-profile not found"),
 		},
 		{
 			name:        "create profile new-profile",

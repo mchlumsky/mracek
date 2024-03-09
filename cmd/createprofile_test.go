@@ -21,7 +21,7 @@ func TestCreateProfileCommand(t *testing.T) {
 			env:         nil,
 			args:        []string{"create-profile", "--os-config-dir", confDir, "--password", "secret", "new-profile"},
 			expected:    "",
-			expectedErr: fmt.Errorf("cloud new-profile already exists in clouds-public.yaml"),
+			expectedErr: fmt.Errorf("failed to create profile: cloud new-profile already exists in clouds-public.yaml"),
 		},
 	}
 

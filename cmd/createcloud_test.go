@@ -16,7 +16,7 @@ func TestCreateCloudCommand(t *testing.T) {
 		{
 			name:        "test cloud creation twice fail",
 			args:        []string{"create-cloud", "--os-config-dir", confDir, "new-cloud"},
-			expectedErr: fmt.Errorf("cloud new-cloud already exists in clouds.yaml"),
+			expectedErr: fmt.Errorf("failed to create cloud: cloud new-cloud already exists in clouds.yaml"),
 		},
 	}
 

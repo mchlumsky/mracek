@@ -35,7 +35,13 @@ func NewShowProfileCommand() *cobra.Command {
 	return cmd
 }
 
-func showProfileCommandRun(cmd *cobra.Command, args []string) error {
+func showProfileCommandRun(cmd *cobra.Command, args []string) (err error) {
+	defer func() {
+		if err != nil {
+			err = fmt.Errorf("failed to show profile: %w", err)
+		}
+	}()
+
 	opts := config.YAMLOpts{Directory: viper.GetString("os-config-dir")}
 
 	profiles, err := opts.LoadPublicCloudsYAML()

@@ -42,7 +42,13 @@ func NewCopyCloudCommand() *cobra.Command {
 
 //nolint:funlen,gocognit,cyclop
 func copyCloudCommandRunE(cloudFlags *clientconfig.Cloud) func(cmd *cobra.Command, args []string) error {
-	return func(cmd *cobra.Command, args []string) error {
+	return func(cmd *cobra.Command, args []string) (err error) {
+		defer func() {
+			if err != nil {
+				err = fmt.Errorf("failed to copy cloud: %w", err)
+			}
+		}()
+
 		opts := config.YAMLOpts{Directory: viper.GetString("os-config-dir")}
 		co := clientconfig.ClientOpts{Cloud: args[0], YAMLOpts: opts}
 

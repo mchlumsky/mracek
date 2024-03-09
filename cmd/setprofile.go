@@ -40,7 +40,13 @@ func NewSetProfileCommand() *cobra.Command {
 
 //nolint:cyclop,funlen,gocognit
 func setProfileCommandRun(profileFlags *clientconfig.Cloud) func(cmd *cobra.Command, args []string) error {
-	return func(cmd *cobra.Command, args []string) error {
+	return func(cmd *cobra.Command, args []string) (err error) {
+		defer func() {
+			if err != nil {
+				err = fmt.Errorf("failed to set profile: %w", err)
+			}
+		}()
+
 		opts := config.YAMLOpts{Directory: viper.GetString("os-config-dir")}
 
 		profiles, err := config.LoadAndCheckOSConfigfile("clouds-public.yaml", opts.LoadPublicCloudsYAML, "")

@@ -369,12 +369,12 @@ func (m model) initialModel() tea.Msg {
 
 	allPages, err := catalog.List(client).AllPages()
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to list service catalog: %w", err)
 	}
 
 	cEntries, err := catalog.ExtractServiceCatalog(allPages)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to extract service catalog: %w", err)
 	}
 
 	newCEntries := cEntries
