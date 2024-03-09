@@ -60,7 +60,7 @@ linters:
     - nlreturn
     - noctx
     - nolintlint
-    - nonamedreturns
+#    - nonamedreturns
     - nosprintfhostport
     - prealloc
     - predeclared
