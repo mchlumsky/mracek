@@ -57,7 +57,7 @@ func showProfileCommandRun(cmd *cobra.Command, args []string) (err error) {
 	if !ok {
 		_, _ = fmt.Fprintf(cmd.ErrOrStderr(), "profile %s not found", args[0])
 
-		os.Exit(1)
+		os.Exit(1) //nolint:gocritic
 	}
 
 	unmask, err := cmd.Flags().GetBool("unmask")
