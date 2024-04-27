@@ -11,7 +11,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: "1.22.1"
+          go-version: "1.22.2"
 
       - name: Test
         run: go test -race -v ./...
@@ -30,13 +30,13 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: "1.22.1"
+          go-version: "1.22.2"
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v5
         with:
           distribution: goreleaser
-          version: v1.24.0
+          version: v1.25.1
           args: release --clean --skip-validate --skip-publish --snapshot
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
