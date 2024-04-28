@@ -15,6 +15,14 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+type cloudExistsError struct {
+	cloud string
+}
+
+func (e cloudExistsError) Error() string {
+	return fmt.Sprintf("cloud %s already exists, use --force to overwrite", e.cloud)
+}
+
 func NewCopyCloudCommand() *cobra.Command {
 	cloudFlags := clientconfig.Cloud{AuthInfo: &clientconfig.AuthInfo{}, Verify: new(bool)}
 
@@ -99,7 +107,7 @@ func copyCloudCommandRunE(cloudFlags *clientconfig.Cloud) func(cmd *cobra.Comman
 		if _, ok := clouds[args[1]]; ok { // destination cloud exists
 			if f, err := cmd.Flags().GetBool("force"); err == nil {
 				if !f {
-					return fmt.Errorf("cloud %s already exists, use --force to overwrite", args[1])
+					return cloudExistsError{args[1]}
 				}
 			} else {
 				return err

@@ -3,6 +3,8 @@ package cmd
 import (
 	"fmt"
 	"testing"
+
+	"github.com/mchlumsky/mracek/config"
 )
 
 func TestCreateCloudCommand(t *testing.T) {
@@ -14,9 +16,13 @@ func TestCreateCloudCommand(t *testing.T) {
 			args: []string{"create-cloud", "--os-config-dir", confDir, "--password", "secret", "new-cloud"},
 		},
 		{
-			name:        "test cloud creation twice fail",
-			args:        []string{"create-cloud", "--os-config-dir", confDir, "new-cloud"},
-			expectedErr: fmt.Errorf("failed to create cloud: cloud new-cloud already exists in clouds.yaml"),
+			name: "test cloud creation twice fail",
+			args: []string{"create-cloud", "--os-config-dir", confDir, "new-cloud"},
+			expectedErr: fmt.Errorf(
+				"failed to create cloud: %w", config.CloudAlreadyExistsError{
+					Cloud:    "new-cloud",
+					Filename: "clouds.yaml",
+				}),
 		},
 	}
 

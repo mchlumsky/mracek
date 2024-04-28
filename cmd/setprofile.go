@@ -15,6 +15,14 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+type profileNotFoundError struct {
+	profile string
+}
+
+func (e profileNotFoundError) Error() string {
+	return fmt.Sprintf("error: profile %s not found", e.profile)
+}
+
 func NewSetProfileCommand() *cobra.Command {
 	profileFlags := clientconfig.Cloud{AuthInfo: &clientconfig.AuthInfo{}, Verify: new(bool)}
 
@@ -60,7 +68,7 @@ func setProfileCommandRun(profileFlags *clientconfig.Cloud) func(cmd *cobra.Comm
 
 		profile, ok := profiles[args[0]]
 		if !ok {
-			return fmt.Errorf("error: profile %s not found", args[0])
+			return profileNotFoundError{args[0]}
 		}
 
 		passPrompt, err := cmd.Flags().GetBool("password-prompt")

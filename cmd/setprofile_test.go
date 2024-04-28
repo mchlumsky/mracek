@@ -18,11 +18,12 @@ func TestSetProfileCommand(t *testing.T) {
 			expectedErr: nil,
 		},
 		{
-			name:        "set profile new-profile before it exists",
-			env:         nil,
-			args:        []string{"--os-config-dir", confDir, "set-profile", "new-profile"},
-			expected:    "",
-			expectedErr: fmt.Errorf("failed to set profile: error: profile new-profile not found"),
+			name:     "set profile new-profile before it exists",
+			env:      nil,
+			args:     []string{"--os-config-dir", confDir, "set-profile", "new-profile"},
+			expected: "",
+			expectedErr: fmt.Errorf(
+				"failed to set profile: %w", profileNotFoundError{"new-profile"}),
 		},
 		{
 			name:        "create profile new-profile",

@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"fmt"
+	"errors"
 	"testing"
 )
 
@@ -164,8 +164,9 @@ key: client.key
 				"source-cloud",
 				"destination-cloud",
 			},
-			expected:    "",
-			expectedErr: fmt.Errorf("failed to copy cloud: cloud destination-cloud already exists, use --force to overwrite"),
+			expected: "",
+			expectedErr: errors.New( //nolint:goerr113
+				"failed to copy cloud: cloud destination-cloud already exists, use --force to overwrite"),
 		},
 		{
 			name: "copy cloud overwrite destination with --force",

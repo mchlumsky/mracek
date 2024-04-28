@@ -13,6 +13,23 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+type noHomeDirError struct {
+	user string
+}
+
+func (e noHomeDirError) Error() string {
+	return "no home directory found for user " + e.user
+}
+
+type CloudAlreadyExistsError struct {
+	Cloud    string
+	Filename string
+}
+
+func (e CloudAlreadyExistsError) Error() string {
+	return fmt.Sprintf("cloud %s already exists in %s", e.Cloud, e.Filename)
+}
+
 // FindAndReadYAML looks for filename in home directory if dir is empty, otherwise looks in specified directory.
 func FindAndReadYAML(dir, filename string) (string, []byte, error) {
 	if dir == "" {
@@ -23,7 +40,7 @@ func FindAndReadYAML(dir, filename string) (string, []byte, error) {
 
 		dir = currentUser.HomeDir
 		if dir == "" {
-			return "", nil, fmt.Errorf("no home directory found for user %s", currentUser)
+			return "", nil, noHomeDirError{user: currentUser.Username}
 		}
 
 		dir = filepath.Join(dir, ".config/openstack/")
@@ -40,8 +57,8 @@ func FindAndReadYAML(dir, filename string) (string, []byte, error) {
 }
 
 type Clouds struct {
-	Clouds       map[string]clientconfig.Cloud `yaml:"clouds" json:"clouds"`
-	PublicClouds map[string]clientconfig.Cloud `yaml:"public-clouds" json:"public-clouds"` //nolint:tagliatelle
+	Clouds       map[string]clientconfig.Cloud `json:"clouds"        yaml:"clouds"`
+	PublicClouds map[string]clientconfig.Cloud `json:"public-clouds" yaml:"public-clouds"` //nolint:tagliatelle
 }
 
 func LoadYAML(dir, filename string) (Clouds, error) {
@@ -161,7 +178,7 @@ func LoadAndCheckOSConfigfile(
 
 	if cloudName != "" {
 		if _, present := clouds[cloudName]; present {
-			return nil, fmt.Errorf("cloud %s already exists in %s", cloudName, filename)
+			return nil, CloudAlreadyExistsError{cloudName, filename}
 		}
 	}
 
