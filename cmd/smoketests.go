@@ -216,8 +216,6 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 		for regName, service := range msg {
 			for _, svcName := range maps.Keys(service) {
-				regName, svcName := regName, svcName
-
 				cmds = append(cmds, func() tea.Msg {
 					return smokeTest(regName, svcName)
 				})
