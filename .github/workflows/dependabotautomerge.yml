@@ -13,13 +13,13 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            github.pullRequests.createReview({
+            github.rest.pullRequests.createReview({
               owner: context.payload.repository.owner.login,
               repo: context.payload.repository.name,
               pull_number: context.payload.pull_request.number,
               event: 'APPROVE'
             })
-            github.pullRequests.merge({
+            github.rest.pullRequests.merge({
               owner: context.payload.repository.owner.login,
               repo: context.payload.repository.name,
               pull_number: context.payload.pull_request.number
