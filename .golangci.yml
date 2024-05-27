@@ -17,10 +17,12 @@ linters:
     - dupl
     - dupword
     - durationcheck
+
     - errcheck
     - errchkjson
     - errname
     - errorlint
+    - err113
     - execinquery
     - exhaustive
 #    - exhaustruct
@@ -40,7 +42,6 @@ linters:
     - gocyclo
     - godot
     - godox
-    - goerr113
     - gofmt
     - gofumpt
     - goheader
@@ -61,7 +62,7 @@ linters:
     - intrange
 #    - ireturn
     - lll
-    - logrlint
+    - loggercheck
     - maintidx
     - makezero
     - mirror
