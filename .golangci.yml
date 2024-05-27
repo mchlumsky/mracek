@@ -22,7 +22,6 @@ linters:
     - errname
     - errorlint
     - err113
-    - execinquery
     - exhaustive
 #    - exhaustruct
     - exportloopref
