@@ -1,12 +1,11 @@
 name: release
 
 on:
-  push:
-    tags:
-      - '*'
+  create:
 
 jobs:
   goreleaser:
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
