@@ -17,7 +17,6 @@ linters:
     - dupl
     - dupword
     - durationcheck
-
     - errcheck
     - errchkjson
     - errname
