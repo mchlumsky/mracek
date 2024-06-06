@@ -31,7 +31,7 @@ tasks:
 
   test-release:
     cmds:
-      - goreleaser release --skip=validate --skip-publish --clean --snapshot
+      - goreleaser release --skip=validate --skip=publish --clean --snapshot
 
   release:
     vars:
