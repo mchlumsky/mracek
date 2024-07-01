@@ -24,8 +24,6 @@ tasks:
       - go test -cover -v -race $(go list ./...)
 
   build:
-    env:
-      CGO_ENABLED: 1
     cmds:
       - goreleaser build --skip=validate --clean --snapshot
 
