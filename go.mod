@@ -4,7 +4,7 @@ go 1.23.2
 
 require (
 	dario.cat/mergo v1.0.1
-	github.com/charmbracelet/bubbletea v1.2.1
+	github.com/charmbracelet/bubbletea v1.2.2
 	github.com/google/go-cmp v0.6.0
 	github.com/gophercloud/gophercloud v1.14.1
 	github.com/gophercloud/utils v0.0.0-20230523080330-de873b9cf00d
