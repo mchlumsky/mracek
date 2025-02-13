@@ -15,13 +15,9 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: "1.23.6"
+          go-version: "1.24.0"
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v6
-        with:
-          distribution: goreleaser
-          version: v2.7.0
-          args: release --clean
+        run: go tool task release 
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           FURY_TOKEN: ${{ secrets.FURY_TOKEN }}

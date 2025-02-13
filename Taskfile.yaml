@@ -9,7 +9,7 @@ tasks:
 
   lint:
     cmds:
-      - golangci-lint run
+      - go tool golangci-lint run
 
   all-tests:
     deps:
@@ -25,11 +25,11 @@ tasks:
 
   build:
     cmds:
-      - goreleaser build --skip=validate --clean --snapshot
+      - go tool goreleaser build --skip=validate --clean --snapshot
 
   test-release:
     cmds:
-      - goreleaser release --skip=validate --skip=publish --clean --snapshot
+      - go tool goreleaser release --skip=validate --skip=publish --clean --snapshot
 
   release:
     vars:
@@ -37,7 +37,7 @@ tasks:
       # generate a changelog.
       GIT_DEPTH: 0
     cmds:
-      - goreleaser release --clean
+      - go tool goreleaser release --clean
 
   coverage:
     cmds:
@@ -52,11 +52,11 @@ tasks:
     cmds:
       - echo $MRACEK_OS_CONFIG_DIR
       - echo $PWD
-      - vhs demo.tape
+      - go tool vhs demo.tape
       - rm clouds.yaml
       - rm secure.yaml
 
   smoke-tests-demo:
     dir: assets/
     cmds:
-      - vhs smoke-tests.tape
+      - go tool vhs smoke-tests.tape

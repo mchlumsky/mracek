@@ -9,11 +9,9 @@ jobs:
     steps:
       - uses: actions/setup-go@v5
         with:
-          go-version: "1.23.6"
+          go-version: "1.24.0"
 
       - uses: actions/checkout@v4
 
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v6
-        with:
-          version: v1.63.4
+        run: go tool task lint

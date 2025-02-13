@@ -12,7 +12,7 @@ linters:
     - copyloopvar
     - cyclop
     - decorder
-#    - depguard
+    #    - depguard
     - dogsled
     - dupl
     - dupword
@@ -23,7 +23,7 @@ linters:
     - errorlint
     - err113
     - exhaustive
-#    - exhaustruct
+    #    - exhaustruct
     - forbidigo
     - forcetypeassert
     - funlen
@@ -43,7 +43,7 @@ linters:
     - gofumpt
     - goheader
     - goimports
-#    - gomnd
+    #    - gomnd
     - gomoddirectives
     - gomodguard
     - goprintffuncname
@@ -57,7 +57,7 @@ linters:
     - ineffassign
     - interfacebloat
     - intrange
-#    - ireturn
+    #    - ireturn
     - lll
     - loggercheck
     - maintidx
@@ -74,7 +74,7 @@ linters:
     - nolintlint
     - nonamedreturns
     - nosprintfhostport
-#    - paralleltest
+    # - paralleltest
     - perfsprint
     - prealloc
     - predeclared
@@ -90,20 +90,21 @@ linters:
     - stylecheck
     - tagalign
     - tagliatelle
-    - tenv
+    # - tenv
     - testableexamples
     - testifylint
-#    - testpackage
+    # - testpackage
     - thelper
     - tparallel
     - typecheck
     - unconvert
     - unparam
     - unused
+    - usetesting
     - usestdlibvars
     - varnamelen
     - wastedassign
     - whitespace
-#    - wrapcheck
+    # - wrapcheck
     - wsl
     - zerologlint
