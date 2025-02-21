@@ -11,7 +11,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: "1.24.0"
+          go-version-file: go.mod
 
       - name: Test
         run: go test -race -v ./...
@@ -30,7 +30,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: "1.24.0"
+          go-version-file: go.mod
 
       - name: Run GoReleaser
         run: go tool task test-release
