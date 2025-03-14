@@ -150,7 +150,7 @@ require (
 	github.com/charmbracelet/vhs v0.9.0 // indirect
 	github.com/charmbracelet/wish v1.4.6 // indirect
 	github.com/charmbracelet/x/ansi v0.8.0 // indirect
-	github.com/charmbracelet/x/cellbuf v0.0.13-0.20250311204145-2c3ea96c31dd // indirect
+	github.com/charmbracelet/x/cellbuf v0.0.13 // indirect
 	github.com/charmbracelet/x/conpty v0.1.0 // indirect
 	github.com/charmbracelet/x/errors v0.0.0-20240904165849-e8e43e13f84b // indirect
 	github.com/charmbracelet/x/term v0.2.1 // indirect
