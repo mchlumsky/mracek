@@ -1,7 +1,6 @@
 module github.com/mchlumsky/mracek
 
 go 1.24.1
-
 require (
 	dario.cat/mergo v1.0.1
 	github.com/charmbracelet/bubbletea v1.3.4
@@ -26,10 +25,10 @@ require (
 	cloud.google.com/go/auth v0.15.0 // indirect
 	cloud.google.com/go/auth/oauth2adapt v0.2.7 // indirect
 	cloud.google.com/go/compute/metadata v0.6.0 // indirect
-	cloud.google.com/go/iam v1.4.1 // indirect
-	cloud.google.com/go/kms v1.21.0 // indirect
-	cloud.google.com/go/longrunning v0.6.5 // indirect
-	cloud.google.com/go/monitoring v1.24.0 // indirect
+	cloud.google.com/go/iam v1.4.2 // indirect
+	cloud.google.com/go/kms v1.21.1 // indirect
+	cloud.google.com/go/longrunning v0.6.6 // indirect
+	cloud.google.com/go/monitoring v1.24.1 // indirect
 	cloud.google.com/go/storage v1.51.0 // indirect
 	code.gitea.io/sdk/gitea v0.20.0 // indirect
 	github.com/42wim/httpsig v1.2.2 // indirect
@@ -116,8 +115,8 @@ require (
 	github.com/bahlo/generic-list-go v0.2.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bkielbasa/cyclop v1.2.3 // indirect
-	github.com/blacktop/go-dwarf v1.0.12 // indirect
-	github.com/blacktop/go-macho v1.1.242 // indirect
+	github.com/blacktop/go-dwarf v1.0.13 // indirect
+	github.com/blacktop/go-macho v1.1.243 // indirect
 	github.com/blakesmith/ar v0.0.0-20190502131153-809d4375e1fb // indirect
 	github.com/blang/semver v3.5.1+incompatible // indirect
 	github.com/blizzy78/varnamelen v0.8.0 // indirect
@@ -180,7 +179,7 @@ require (
 	github.com/docker/cli v28.0.1+incompatible // indirect
 	github.com/docker/distribution v2.8.3+incompatible // indirect
 	github.com/docker/docker v27.5.1+incompatible // indirect
-	github.com/docker/docker-credential-helpers v0.9.2 // indirect
+	github.com/docker/docker-credential-helpers v0.9.3 // indirect
 	github.com/docker/go-connections v0.5.0 // indirect
 	github.com/docker/go-units v0.5.0 // indirect
 	github.com/dominikbraun/graph v0.23.0 // indirect
@@ -265,7 +264,7 @@ require (
 	github.com/gordonklaus/ineffassign v0.1.0 // indirect
 	github.com/goreleaser/chglog v0.6.2 // indirect
 	github.com/goreleaser/fileglob v1.3.0 // indirect
-	github.com/goreleaser/goreleaser/v2 v2.8.0 // indirect
+	github.com/goreleaser/goreleaser/v2 v2.8.1 // indirect
 	github.com/goreleaser/nfpm/v2 v2.41.3 // indirect
 	github.com/gorilla/css v1.0.1 // indirect
 	github.com/gorilla/websocket v1.5.3 // indirect
@@ -466,7 +465,7 @@ require (
 	github.com/zeebo/xxh3 v1.0.2 // indirect
 	gitlab.com/bosi/decorder v0.4.2 // indirect
 	gitlab.com/digitalxero/go-conventional-commit v1.0.7 // indirect
-	gitlab.com/gitlab-org/api/client-go v0.124.0 // indirect
+	gitlab.com/gitlab-org/api/client-go v0.125.0 // indirect
 	go-simpler.org/musttag v0.13.0 // indirect
 	go-simpler.org/sloglint v0.9.0 // indirect
 	go.mongodb.org/mongo-driver v1.17.3 // indirect
@@ -496,7 +495,7 @@ require (
 	golang.org/x/time v0.11.0 // indirect
 	golang.org/x/tools v0.31.0 // indirect
 	golang.org/x/xerrors v0.0.0-20240716161551-93cc26a95ae9 // indirect
-	google.golang.org/api v0.225.0 // indirect
+	google.golang.org/api v0.226.0 // indirect
 	google.golang.org/genproto v0.0.0-20250303144028-a0af3efb3deb // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20250303144028-a0af3efb3deb // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250303144028-a0af3efb3deb // indirect
