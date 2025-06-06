@@ -3,7 +3,7 @@ module github.com/mchlumsky/mracek
 go 1.24.4
 
 require (
-	dario.cat/mergo v1.0.1
+	dario.cat/mergo v1.0.2
 	github.com/charmbracelet/bubbletea v1.3.5
 	github.com/google/go-cmp v0.7.0
 	github.com/gophercloud/gophercloud v1.14.1
