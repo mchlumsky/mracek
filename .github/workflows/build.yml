@@ -33,6 +33,6 @@ jobs:
           go-version-file: go.mod
 
       - name: Run GoReleaser
-        run: go tool task test-release
+        run: go tool -modfile go.task.mod task test-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
