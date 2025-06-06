@@ -17,7 +17,7 @@ jobs:
         with:
           go-version-file: go.mod
       - name: Run GoReleaser
-        run: go tool task release 
+        run: go tool -modfile go.task.mod task release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           FURY_TOKEN: ${{ secrets.FURY_TOKEN }}
