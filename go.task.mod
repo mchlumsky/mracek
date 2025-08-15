@@ -1,6 +1,6 @@
 module github.com/mchlumsky/mracek
 
-go 1.24.4
+go 1.25.0
 
 tool github.com/go-task/task/v3/cmd/task
 
