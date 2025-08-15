@@ -5,6 +5,7 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE.md)
 [![Build status](https://img.shields.io/github/actions/workflow/status/mchlumsky/mracek/build.yml?branch=main)](https://github.com/mchlumsky/mracek/actions?workflow=build)
 [![Powered By: GoReleaser](https://img.shields.io/badge/powered%20by-goreleaser-green.svg)](https://github.com/goreleaser)
+[![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-donate-yellow.svg)](https://www.buymeacoffee.com/martinchlumsky)
 
 mracek is a CLI tool to manage your OpenStack [configuration files](https://docs.openstack.org/os-client-config/latest/user/configuration.html#config-files).
 
