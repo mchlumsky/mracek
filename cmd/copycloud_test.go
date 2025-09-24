@@ -165,7 +165,7 @@ key: client.key
 				"destination-cloud",
 			},
 			expected: "",
-			expectedErr: errors.New( //nolint:goerr113
+			expectedErr: errors.New( //nolint:err113
 				"failed to copy cloud: cloud destination-cloud already exists, use --force to overwrite"),
 		},
 		{

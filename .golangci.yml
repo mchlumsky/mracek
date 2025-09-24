@@ -1,6 +1,4 @@
-linters-settings:
-  gofumpt:
-    extra-rules: true
+version: "2"
 linters:
   enable:
     - asasalint
@@ -12,22 +10,18 @@ linters:
     - copyloopvar
     - cyclop
     - decorder
-    #    - depguard
     - dogsled
     - dupl
     - dupword
     - durationcheck
-    - errcheck
+    - err113
     - errchkjson
     - errname
     - errorlint
-    - err113
     - exhaustive
-    #    - exhaustruct
     - forbidigo
     - forcetypeassert
     - funlen
-    - gci
     - ginkgolinter
     - gocheckcompilerdirectives
     - gochecknoglobals
@@ -39,25 +33,17 @@ linters:
     - gocyclo
     - godot
     - godox
-    - gofmt
-    - gofumpt
     - goheader
-    - goimports
-    #    - gomnd
     - gomoddirectives
     - gomodguard
     - goprintffuncname
     - gosec
-    - gosimple
     - gosmopolitan
-    - govet
     - grouper
     - importas
     - inamedparam
-    - ineffassign
     - interfacebloat
     - intrange
-    #    - ireturn
     - lll
     - loggercheck
     - maintidx
@@ -74,7 +60,6 @@ linters:
     - nolintlint
     - nonamedreturns
     - nosprintfhostport
-    # - paralleltest
     - perfsprint
     - prealloc
     - predeclared
@@ -87,24 +72,49 @@ linters:
     - spancheck
     - sqlclosecheck
     - staticcheck
-    - stylecheck
     - tagalign
     - tagliatelle
-    # - tenv
     - testableexamples
     - testifylint
-    # - testpackage
     - thelper
     - tparallel
-    - typecheck
     - unconvert
     - unparam
-    - unused
-    - usetesting
     - usestdlibvars
+    - usetesting
     - varnamelen
     - wastedassign
     - whitespace
-    # - wrapcheck
-    - wsl
+    - wsl_v5
     - zerologlint
+  settings:
+    wsl_v5:
+      allow-first-in-block: true
+      allow-whole-block: false
+      branch-max-lines: 2
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - gci
+    - gofmt
+    - gofumpt
+    - goimports
+  settings:
+    gofumpt:
+      extra-rules: true
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$

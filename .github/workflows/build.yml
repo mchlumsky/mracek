@@ -33,6 +33,10 @@ jobs:
           go-version-file: go.mod
 
       - name: Run GoReleaser
-        run: go tool -modfile go.task.mod task test-release
+        uses: goreleaser/goreleaser-action@v6
+        with:
+          distribution: goreleaser
+          version: v2.12.2
+          args: release --clean --skip=validate --skip=publish --snapshot
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

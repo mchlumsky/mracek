@@ -27,7 +27,7 @@ func backupFile(path string) {
 
 	cobra.CheckErr(err)
 
-	err = os.WriteFile(path+"-"+strconv.FormatInt(time.Now().Unix(), 10), input, 0o600) //nolint:gomnd
+	err = os.WriteFile(path+"-"+strconv.FormatInt(time.Now().Unix(), 10), input, 0o600)
 	cobra.CheckErr(err)
 
 	backups, err := filepath.Glob(path + "-*")
@@ -62,7 +62,7 @@ func WriteOSConfig(directory string, clouds, secure, public []byte) (err error) 
 
 		backupFile(f)
 
-		err := os.WriteFile(f, clouds, 0o600) //nolint:gomnd
+		err := os.WriteFile(f, clouds, 0o600)
 		if err != nil {
 			return err
 		}
@@ -73,7 +73,7 @@ func WriteOSConfig(directory string, clouds, secure, public []byte) (err error) 
 
 		backupFile(f)
 
-		err := os.WriteFile(f, secure, 0o600) //nolint:gomnd
+		err := os.WriteFile(f, secure, 0o600)
 		if err != nil {
 			return err
 		}
@@ -84,7 +84,7 @@ func WriteOSConfig(directory string, clouds, secure, public []byte) (err error) 
 
 		backupFile(f)
 
-		err := os.WriteFile(f, public, 0o600) //nolint:gomnd
+		err := os.WriteFile(f, public, 0o600)
 		if err != nil {
 			return err
 		}
