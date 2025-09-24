@@ -30,7 +30,7 @@ func NewCopyCloudCommand() *cobra.Command {
 		Use:   "copy-cloud [flags] SOURCE-CLOUD DESTINATION-CLOUD",
 		Short: "Copy cloud",
 		Long:  "Copy a source cloud into a new destination cloud while optionally overriding cloud properties",
-		Args:  cobra.ExactArgs(2), //nolint:gomnd
+		Args:  cobra.ExactArgs(2),
 		RunE:  copyCloudCommandRunE(&cloudFlags),
 		ValidArgsFunction: func() ValidArgsFunc {
 			return func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
