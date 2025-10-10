@@ -1,6 +1,6 @@
 module github.com/mchlumsky/mracek
 
-go 1.25.1
+go 1.25.2
 
 require (
 	dario.cat/mergo v1.0.2
@@ -12,7 +12,7 @@ require (
 	github.com/spf13/cobra v1.10.1
 	github.com/spf13/pflag v1.0.10
 	github.com/spf13/viper v1.21.0
-	golang.org/x/exp v0.0.0-20250606033433-dcc06ee1d476
+	golang.org/x/exp v0.0.0-20251009144603-d2f985daa21b
 	golang.org/x/term v0.36.0
 	gopkg.in/yaml.v3 v3.0.1
 )
