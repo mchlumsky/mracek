@@ -66,3 +66,17 @@ publishers:
     env:
       - FURY_TOKEN={{ .Env.FURY_TOKEN }}
     cmd: ./scripts/fury-upload.sh {{ .ArtifactName }}
+homebrew_casks:
+  - name: mracek
+    repository:
+      owner: mchlumsky
+      name: homebrew-tap
+      branch: main
+    homepage: "https://github.com/mchlumsky/mracek"
+    description: "Manage your OpenStack configuration files via CLI."
+    binaries:
+      - mracek
+    completions:
+      bash: completions/mracek.bash
+      zsh: completions/mracek.zsh
+      fish: completions/mracek.fish
