@@ -26,5 +26,5 @@ jobs:
           version: v2.12.7
           args: release --clean
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
           FURY_TOKEN: ${{ secrets.FURY_TOKEN }}
