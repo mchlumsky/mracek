@@ -87,3 +87,5 @@ homebrew_casks:
       bash: completions/mracek.bash
       zsh: completions/mracek.zsh
       fish: completions/mracek.fish
+upx:
+  - enabled: true
