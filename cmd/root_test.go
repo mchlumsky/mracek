@@ -94,7 +94,7 @@ func TestFormatCloudsStringWithInvalidOSCloud(t *testing.T) {
 func TestSetCloudEnvAllFieldsOSCloudOnly(t *testing.T) {
 	t.Cleanup(cleanEnv)
 
-	expected := map[string]string{
+	expected := map[string]string{ //nolint:gosec
 		"OS_AUTH_URL":                      "https://all.example.com:5000/v3",
 		"OS_USERNAME":                      "jdoe",
 		"OS_PASSWORD":                      "password",
@@ -141,7 +141,7 @@ func TestSetCloudEnvAllFieldsOSCloudOnly(t *testing.T) {
 func TestSetCloudEnvAllFields(t *testing.T) {
 	t.Cleanup(cleanEnv)
 
-	expected := map[string]string{
+	expected := map[string]string{ //nolint:gosec
 		"OS_CLOUD":                         "all_fields",
 		"OS_AUTH_URL":                      "https://all.example.com:5000/v3",
 		"OS_USERNAME":                      "jdoe",
