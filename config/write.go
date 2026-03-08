@@ -27,7 +27,7 @@ func backupFile(path string) {
 
 	cobra.CheckErr(err)
 
-	err = os.WriteFile(path+"-"+strconv.FormatInt(time.Now().Unix(), 10), input, 0o600)
+	err = os.WriteFile(path+"-"+strconv.FormatInt(time.Now().Unix(), 10), input, 0o600) //nolint:gosec
 	cobra.CheckErr(err)
 
 	backups, err := filepath.Glob(path + "-*")

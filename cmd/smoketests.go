@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"sort"
+	"strings"
 	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
@@ -91,7 +92,7 @@ func serviceClient(regName regionName, svcType string) (*gophercloud.ServiceClie
 		panic(err)
 	}
 
-	ctx, cancelFn := context.WithTimeout(context.Background(), time.Minute)
+	ctx, cancelFn := context.WithTimeout(context.Background(), time.Minute) //nolint:gosec
 
 	client.Context = ctx
 
@@ -215,7 +216,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		cmds := make([]tea.Cmd, 0)
 
 		for regName, service := range msg {
-			for _, svcName := range maps.Keys(service) {
+			for svcName := range service {
 				cmds = append(cmds, func() tea.Msg {
 					return smokeTest(regName, svcName)
 				})
@@ -254,7 +255,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m model) View() string {
-	res := ""
+	var res strings.Builder
 
 	rnames := make([]string, len(m.svcStates))
 	for i, r := range maps.Keys(m.svcStates) {
@@ -277,7 +278,7 @@ func (m model) View() string {
 			slices.Sort(perState[state])
 		}
 
-		res += fmt.Sprint(termenv.String(rname + ": ").Foreground(termenv.ANSICyan))
+		fmt.Fprint(&res, termenv.String(rname+": ").Foreground(termenv.ANSICyan))
 
 		states := maps.Keys(perState)
 		sort.Strings(states)
@@ -285,23 +286,23 @@ func (m model) View() string {
 		for _, state := range states {
 			types := perState[state]
 			state := termenv.String(state).Foreground(stateColors[state])
-			res += fmt.Sprintf(" %v => [ ", state)
+			fmt.Fprintf(&res, " %v => [ ", state)
 
 			for _, t := range types {
-				res += termenv.String(string(t)).Foreground(termenv.ANSIBrightWhite).String() + " "
+				res.WriteString(termenv.String(string(t)).Foreground(termenv.ANSIBrightWhite).String() + " ")
 			}
 
-			res += "] "
+			res.WriteString("] ")
 		}
 
-		res += "\n"
+		res.WriteString("\n")
 	}
 
 	for _, msg := range m.errMessages {
-		res += termenv.String("ERROR: "+msg.String()).Foreground(termenv.ANSIBrightRed).String() + "\n"
+		res.WriteString(termenv.String("ERROR: "+msg.String()).Foreground(termenv.ANSIBrightRed).String() + "\n")
 	}
 
-	return res
+	return res.String()
 }
 
 func smokeTestsCommand(cmd *cobra.Command, args []string) {
@@ -340,7 +341,7 @@ func identityClient(region string) (*gophercloud.ServiceClient, error) {
 }
 
 func filterEntries(entries []tokens.CatalogEntry, region regionName) []tokens.CatalogEntry {
-	newEntries := []tokens.CatalogEntry{}
+	newEntries := make([]tokens.CatalogEntry, 0, len(entries))
 
 	for _, entry := range entries {
 		newEndpoints := []tokens.Endpoint{}
