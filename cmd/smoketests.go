@@ -92,7 +92,7 @@ func serviceClient(regName regionName, svcType string) (*gophercloud.ServiceClie
 		panic(err)
 	}
 
-	ctx, cancelFn := context.WithTimeout(context.Background(), time.Minute) //nolint:gosec
+	ctx, cancelFn := context.WithTimeout(context.Background(), time.Minute)
 
 	client.Context = ctx
 
