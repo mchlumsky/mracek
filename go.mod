@@ -33,7 +33,7 @@ require (
 	github.com/hashicorp/go-uuid v1.0.3 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/lucasb-eyer/go-colorful v1.4.0 // indirect
-	github.com/mattn/go-isatty v0.0.21 // indirect
+	github.com/mattn/go-isatty v0.0.22 // indirect
 	github.com/mattn/go-localereader v0.0.2-0.20220822084749-2491eb6c1c75 // indirect
 	github.com/mattn/go-runewidth v0.0.23 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
