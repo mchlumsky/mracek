@@ -1,6 +1,6 @@
 module github.com/mchlumsky/mracek
 
-go 1.26.1
+go 1.26.4
 
 require (
 	dario.cat/mergo v1.0.2

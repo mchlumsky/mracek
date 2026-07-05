@@ -262,7 +262,7 @@ func (m model) View() string {
 		rnames[i] = string(r)
 	}
 
-	slices.Sort(rnames)
+	slices.Sort(rnames) //nolint:govet
 
 	for _, rname := range rnames {
 		perState := make(map[string][]serviceName)
@@ -275,7 +275,7 @@ func (m model) View() string {
 
 			perState[state] = append(perState[state], svcName)
 
-			slices.Sort(perState[state])
+			slices.Sort(perState[state]) //nolint:govet
 		}
 
 		fmt.Fprint(&res, termenv.String(rname+": ").Foreground(termenv.ANSICyan))
@@ -403,7 +403,7 @@ func (m model) initialModel() tea.Msg {
 
 	for _, entry := range newCEntries {
 		stype := serviceType(entry.Type)
-		if !slices.Contains(validServiceTypes, stype) {
+		if !slices.Contains(validServiceTypes, stype) { //nolint:govet
 			continue
 		}
 
