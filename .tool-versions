@@ -1,5 +1,5 @@
 # https://asdf-vm.com/manage/configuration.html#tool-versions
-golangci-lint 2.12.2
+golangci-lint 2.13.0
 vhs 0.10.0
 task 3.49.1
-goreleaser 2.15.4
+goreleaser 2.17.1
